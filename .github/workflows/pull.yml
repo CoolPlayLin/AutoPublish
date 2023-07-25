@@ -1,0 +1,26 @@
+name: Auto Publish
+on:
+ pull_request:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3.5.3
+        with:
+          token: ${{ secrets.COOLPLAYLIN_BOT_TOKEN }}
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11.0'
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin' # See 'Supported distributions' for available options
+          java-version: '17'
+      - name: Setup Env
+        run: |
+          python3 -m pip install -r requirements.txt
+      - name: CI
+        run: python3 src/main.py ${{ secrets.TOKEN }} debug

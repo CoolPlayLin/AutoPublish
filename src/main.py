@@ -231,6 +231,19 @@ def main():
         Commands.append((command(Komac, id, Urls, Version, GH_TOKEN), (id, Version, "write")))
     del Urls, Version, id
 
+    # 更新 Cloudflare.cloudflared
+    id = "Cloudflare.cloudflared"
+    JSON = requests.get("https://api.github.com/repos/cloudflare/cloudflared/releases/latest", verify=False, headers=Headers[1]).json()["assets"]
+    Version = requests.get("https://api.github.com/repos/cloudflare/cloudflared/releases/latest", verify=False, headers=Headers[1]).json()["tag_name"]
+    Urls = [each["browser_download_url"] for each in JSON if ".msi" in each["browser_download_url"]]
+    if not version_verify(str_pop(Version, 0), id):
+         report_existed(id, Version)
+    elif do_list(id, Version, "verify"):
+        report_existed(id, Version)
+    else:
+        Commands.append((command(Komac, id, list_to_str(Urls), Version, GH_TOKEN), (id, Version, "write")))
+    del JSON, Urls, Version, id
+
     # 更新
     if not debug:
         for each in Commands:

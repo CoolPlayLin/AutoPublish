@@ -16,6 +16,7 @@ create an issue to add your software publish to winget easily
 - [scrcpy](https://github.com/Genymobile/scrcpy)
 - [NodeJS](https://github.com/nodejs/node)
 - [Notion](https://www.notion.so/)
+- [cloudflared](https://github.com/cloudflare/cloudflared)
 
 # License
 
