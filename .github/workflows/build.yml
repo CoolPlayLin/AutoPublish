@@ -31,23 +31,11 @@ jobs:
           git config --global user.email "${{ env.EMAIL }}"
       - name: Publish
         run: python3 src/main.py ${{ secrets.TOKEN }}
-      - name: Post on Succeed
-        if: success()
+      - name: Post on Always
+        if: always()
         run: |
-            python3 src/status.py Success
             if [[ -n $(git status -s) ]]; then
             git add ./src/config
-            git add Changelog.md
-            git commit -m "Update metadata"
-            git push origin --force
-            fi
-      - name: Post on Fail
-        if: failure()
-        run: |
-            python3 src/status.py Fail
-            if [[ -n $(git status -s) ]]; then
-            git add ./src/config
-            git add Changelog.md
             git commit -m "Update metadata"
             git push origin --force
             fi

@@ -7,6 +7,11 @@ urllib3.disable_warnings(InsecureRequestWarning)
 import json
 import bs4
 
+GH_TOKEN = sys.argv[1]
+
+def report_existed(id: str, Version: str) -> None:
+    print(f"{id}: {Version} has already existed, skip publishing")
+
 def komac(path: str, debug: bool = False):
     Komac = pathlib.Path(path)/"komac.jar"
     if not debug:
@@ -81,7 +86,7 @@ def main():
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.67",
     }, {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.67",
-        "Authorization": f"Bearer {sys.argv[1]}"
+        "Authorization": f"Bearer {GH_TOKEN}"
     }]
 
     # # 更新 Node.js Nightly
@@ -92,7 +97,7 @@ def main():
     # if not version_verify(str_pop(JSON['version'], 0), id):
     #      print(f"{JSON['version']} has already existed, skip publishing")
     # else:
-    #     Commands.append(command(Komac, id, list_to_str(Urls),str_pop(JSON['version'], 0), sys.argv[1]))
+    #     Commands.append(command(Komac, id, list_to_str(Urls),str_pop(JSON['version'], 0), GH_TOKEN))
     # del JSON, URL, Urls, id
 
     # 更新 Clash for Windows
@@ -101,12 +106,12 @@ def main():
     # Version = requests.get("https://api.github.com/repos/Fndroid/clash_for_windows_pkg/releases/latest", verify=False, headers=Headers[1]).json()["tag_name"]
     # Urls = [each["browser_download_url"] for each in JSON if "exe" in each["browser_download_url"]]
     # if not version_verify(Version, id):
-    #      print(f"{Version} has already existed, skip publishing")
+    #      report_existed(id, Version)
     # elif do_list(id, Version, "verify"):
-    #     print(f"{Version} has already existed, skip publishing")
+    #     report_existed(id, Version)
     # else:
     #     do_list(id, Version, "write")
-    #     Commands.append(command(Komac, id, list_to_str(Urls), Version, sys.argv[1]))
+    #     Commands.append(command(Komac, id, list_to_str(Urls), Version, GH_TOKEN))
     # del JSON, Urls, Version, id
 
     # 更新 DooTask
@@ -115,11 +120,11 @@ def main():
     Version = requests.get("https://api.github.com/repos/kuaifan/dootask/releases/latest", verify=False, headers=Headers[1]).json()["tag_name"]
     Urls = [each["browser_download_url"] for each in JSON if "exe" in each["browser_download_url"] and not "blockmap" in each["browser_download_url"]]
     if not version_verify(str_pop(Version, 0), id):
-         print(f"{Version} has already existed, skip publishing")
+         report_existed(id, Version)
     elif do_list(id, Version, "verify"):
-        print(f"{Version} has already existed, skip publishing")
+        report_existed(id, Version)
     else:
-        Commands.append((command(Komac, id, list_to_str(Urls), str_pop(Version, 0), sys.argv[1]), (id, Version, "write")))
+        Commands.append((command(Komac, id, list_to_str(Urls), str_pop(Version, 0), GH_TOKEN), (id, Version, "write")))
     del JSON, Urls, Version, id
 
     # 更新 Listen 1
@@ -128,11 +133,11 @@ def main():
     Version = requests.get("https://api.github.com/repos/listen1/listen1_desktop/releases/latest", verify=False, headers=Headers[1]).json()["tag_name"]
     Urls = [each["browser_download_url"] for each in JSON if ("exe" in each["browser_download_url"]) and not("blockmap" in each["browser_download_url"]) and (("ia32" in each["browser_download_url"]) or ("x64" in each["browser_download_url"]) or ("arm64" in each["browser_download_url"]))]
     if not version_verify(str_pop(Version, 0), id):
-         print(f"{Version} has already existed, skip publishing")
+         report_existed(id, Version)
     elif do_list(id, Version, "verify"):
-        print(f"{Version} has already existed, skip publishing")
+        report_existed(id, Version)
     else:
-        Commands.append((command(Komac, id, list_to_str(Urls), str_pop(Version, 0), sys.argv[1]), (id, Version, "write")))
+        Commands.append((command(Komac, id, list_to_str(Urls), str_pop(Version, 0), GH_TOKEN), (id, Version, "write")))
     del JSON, Urls, Version, id
 
     # 更新 PicGo
@@ -141,11 +146,11 @@ def main():
     Version = requests.get("https://api.github.com/repos/Molunerfinn/PicGo/releases/latest", verify=False, headers=Headers[1]).json()["tag_name"]
     Urls = [each["browser_download_url"] for each in JSON if ("exe" in each["browser_download_url"]) and not("blockmap" in each["browser_download_url"]) and (("ia32" in each["browser_download_url"]) or ("x64" in each["browser_download_url"]))]
     if not version_verify(str_pop(Version, 0), id):
-         print(f"{Version} has already existed, skip publishing")
+         report_existed(id, Version)
     elif do_list(id, Version, "verify"):
-        print(f"{Version} has already existed, skip publishing")
+        report_existed(id, Version)
     else:
-        Commands.append((command(Komac, id, list_to_str(Urls), str_pop(Version, 0), sys.argv[1]), (id, Version, "write")))
+        Commands.append((command(Komac, id, list_to_str(Urls), str_pop(Version, 0), GH_TOKEN), (id, Version, "write")))
     del JSON, Urls, Version, id
 
     # 更新 PicGo Beta
@@ -154,12 +159,12 @@ def main():
     Version = requests.get("https://api.github.com/repos/Molunerfinn/PicGo/releases", verify=False, headers=Headers[1]).json()[0]["tag_name"]
     Urls = [each["browser_download_url"] for each in JSON if ("exe" in each["browser_download_url"]) and not("blockmap" in each["browser_download_url"]) and (("ia32" in each["browser_download_url"]) or ("x64" in each["browser_download_url"]))]
     if not version_verify(str_pop(Version, 0), id) or Version == requests.get("https://api.github.com/repos/Molunerfinn/PicGo/releases/latest", verify=False, headers=Headers[1]).json()["tag_name"]:
-         print(f"{Version} has already existed, skip publishing")
+         report_existed(id, Version)
     elif do_list(id, Version, "verify"):
-        print(f"{Version} has already existed, skip publishing")
+        report_existed(id, Version)
     else:
 
-        Commands.append((command(Komac, id, list_to_str(Urls), str_pop(Version, 0), sys.argv[1]), (id, Version, "write")))
+        Commands.append((command(Komac, id, list_to_str(Urls), str_pop(Version, 0), GH_TOKEN), (id, Version, "write")))
     del JSON, Urls, Version, id
 
     # 更新 Deno
@@ -168,11 +173,11 @@ def main():
     Version = requests.get("https://api.github.com/repos/denoland/deno/releases", verify=False, headers=Headers[1]).json()[0]["tag_name"]
     Urls = [each["browser_download_url"] for each in JSON if "msvc" in each["browser_download_url"]]
     if not version_verify(str_pop(Version, 0), id) or Version == requests.get("https://api.github.com/repos/Molunerfinn/PicGo/releases/latest", verify=False, headers=Headers[1]).json()["tag_name"]:
-         print(f"{Version} has already existed, skip publishing")
+         report_existed(id, Version)
     elif do_list(id, Version, "verify"):
-        print(f"{Version} has already existed, skip publishing")
+        report_existed(id, Version)
     else:
-        Commands.append((command(Komac, id, list_to_str(Urls), str_pop(Version, 0), sys.argv[1]), (id, Version, "write")))
+        Commands.append((command(Komac, id, list_to_str(Urls), str_pop(Version, 0), GH_TOKEN), (id, Version, "write")))
     del JSON, Urls, Version, id
 
     # 更新 Golang.Go
@@ -181,11 +186,11 @@ def main():
     Version = JSON["version"].replace("go", "")
     Urls = ["https://go.dev/dl/" + each["filename"] for each in JSON["files"] if "msi" in each["filename"]]
     if not version_verify(Version, id):
-        print(f"{Version} has already existed, skip publishing")
+        report_existed(id, Version)
     elif do_list(id, Version, "verify"):
-        print(f"{Version} has already existed, skip publishing")
+        report_existed(id, Version)
     else:
-        Commands.append((command(Komac, id, list_to_str(Urls), Version, sys.argv[1]), (id, Version, "write")))
+        Commands.append((command(Komac, id, list_to_str(Urls), Version, GH_TOKEN), (id, Version, "write")))
     del JSON, Urls, Version, id
 
     # 更新 Genymobile.scrcpy
@@ -194,11 +199,11 @@ def main():
     Version = requests.get("https://api.github.com/repos/Genymobile/scrcpy/releases/latest", verify=False, headers=Headers[1]).json()["tag_name"]
     Urls = [each["browser_download_url"] for each in JSON if "win" in each["browser_download_url"]]
     if not version_verify(str_pop(Version, 0), id):
-         print(f"{Version} has already existed, skip publishing")
+         report_existed(id, Version)
     elif do_list(id, Version, "verify"):
-        print(f"{Version} has already existed, skip publishing")
+        report_existed(id, Version)
     else:
-        Commands.append((command(Komac, id, list_to_str(Urls), str_pop(Version, 0), sys.argv[1]), (id, Version, "write")))
+        Commands.append((command(Komac, id, list_to_str(Urls), str_pop(Version, 0), GH_TOKEN), (id, Version, "write")))
     del JSON, Urls, Version, id
 
     # 更新 OpenJS.NodeJS
@@ -207,16 +212,25 @@ def main():
     Version = clean_string(Urls[0], {"node-v":"", "-":"", ".msi":"", "arm64":"", "x64":"", "x86":""})
     Urls = ["https://nodejs.org/dist/latest/"+each for each in Urls]
     if not version_verify(Version, id):
-        print(f"{Version} has already existed, skip publishing")
+        report_existed(id, Version)
     elif do_list(id, Version, "verify"):
-        print(f"{Version} has already existed, skip publishing")
+        report_existed(id, Version)
     else:
-
-        Commands.append((command(Komac, id, list_to_str(Urls), Version, sys.argv[1]), (id, Version, "write")))
+        Commands.append((command(Komac, id, list_to_str(Urls), Version, GH_TOKEN), (id, Version, "write")))
     del Urls, Version, id
 
-    # 保障 Commands 为 Str
-    Commands = [each for each in Commands if isinstance(each, str)]
+    # 更新 Notion.Notion
+    id = "Notion.Notion"
+    Urls = requests.get("https://www.notion.so/desktop/windows/download", verify=False).url
+    Version = clean_string(Urls, {"https://desktop-release.notion-static.com/Notion%20Setup%20": "", ".exe": ""})
+    if not version_verify(Version, id):
+        report_existed(id, Version)
+    elif do_list(id, Version, "verify"):
+        report_existed(id, Version)
+    else:
+        Commands.append((command(Komac, id, Urls, Version, GH_TOKEN), (id, Version, "write")))
+    del Urls, Version, id
+
     # 更新
     if not debug:
         for each in Commands:
@@ -224,9 +238,9 @@ def main():
                 do_list(*each[1])
     
     # 清理分支
-    os.system(f"java -jar {Komac} branch cleanup --token {sys.argv[1]}")
+    os.system(f"java -jar {Komac} branch cleanup --token {GH_TOKEN}")
 
     return Commands
 
 if __name__ == "__main__":
-    print(main())
+    print([each[0] for each in main()])
