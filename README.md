@@ -9,12 +9,14 @@ create an issue to add your software publish to winget easily
 - [DooTask](https://github.com/kuaifan/dootask)
 - [Listen 1](https://github.com/listen1/listen1_desktop/)
 - ~~[Node.js Nightly](https://nodejs.org/download/nightly/)~~
-  - Stopped - microsoft/winget-pkgs#111537
+  - Stopped by microsoft/winget-pkgs#111537
 - [PicGo](https://github.com/Molunerfinn/PicGo)
 - [Deno](https://github.com/denoland/deno)
 - [GoLang](https://github.com/golang/go)
 - [scrcpy](https://github.com/Genymobile/scrcpy)
 - [NodeJS](https://github.com/nodejs/node)
+- [Notion](https://www.notion.so/)
+- [bcm-convertor](https://github.com/214545666/bcm_convertor)
 
 # License
 
