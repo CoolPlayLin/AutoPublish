@@ -1,4 +1,4 @@
-name: Auto Publish
+name: Auto Publish CI
 on:
  pull_request:
 
