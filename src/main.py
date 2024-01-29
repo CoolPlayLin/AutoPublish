@@ -13,15 +13,15 @@ def report_existed(id: str, Version: str) -> None:
     print(f"{id}: {Version} has already existed, skip publishing")
 
 def komac(path: str, debug: bool = False) -> pathlib.Path:
-    Komac = pathlib.Path(path)/"komac.jar"
+    Komac = pathlib.Path(path)/"komac.exe"
     if not debug:
         with open(Komac, "wb+") as f:
-            file = requests.get("https://gh.xfisxf.top/https://github.com/russellbanks/Komac/releases/download/v1.10.1/Komac-1.10.1-all.jar", verify=False)
+            file = requests.get("https://github.com/russellbanks/Komac/releases/download/v2.0.1/KomacPortable-v2.0.1-x64.exe", verify=False)
             f.write(file.content)
     return Komac
 
 def command(komac: pathlib.Path, id: str, urls: str, version: str, token: str) -> str:
-    Commands = "java -jar {} update --id {} --urls {} --version {} --submit --token {}".format(komac.__str__(), id, urls, version, token)
+    Commands = "{} update --id {} --urls {} --version {} --submit --token {}".format(komac.__str__(), id, urls, version, token)
     return Commands
 
 def clean_string(string: str, keywords: dict[str, str]) -> str:
