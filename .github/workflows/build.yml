@@ -9,7 +9,7 @@ env:
 
 jobs:
   publish:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4.1.1
@@ -54,7 +54,6 @@ jobs:
         run: |
           python3 -m pip install -r requirements.txt
           pnpm install
-          sudo apt install msitools
       - name: Publish
         run: python3 src/main.py ${{ secrets.TOKEN }}
       - name: Format
@@ -62,8 +61,6 @@ jobs:
       - name: Post on Always
         if: always()
         run: |
-          if [[ -n $(git status -s) ]]; then
           git add .
           git commit -m "Update metadata"
           git push origin --force
-          fi
