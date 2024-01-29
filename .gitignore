@@ -3,3 +3,4 @@ manifests
 .vscode
 node_modules
 .venv
+*.exe
