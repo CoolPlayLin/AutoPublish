@@ -706,7 +706,7 @@ def main() -> list[tuple[str, tuple[str, str, str]]]:
         verify=False,
         headers=Headers[0],
     ).json()
-    Version = JSON["tag_name"]
+    Version = JSON["tag_name"].replace("-stable", "")
     Urls = [
         each["browser_download_url"]
         for each in JSON["assets"]
@@ -714,12 +714,12 @@ def main() -> list[tuple[str, tuple[str, str, str]]]:
     ]
     if not version_verify(Version, id):
         report_existed(id, Version)
-    elif do_list(id, str_pop(Version, 0), "verify"):
+    elif do_list(id, Version, "verify"):
         report_existed(id, Version)
     else:
         Commands.append(
             (
-                command(Komac, id, list_to_str(Urls), str_pop(Version, 0), GH_TOKEN),
+                command(Komac, id, list_to_str(Urls), Version, GH_TOKEN),
                 (id, Version, "write"),
             )
         )
