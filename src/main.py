@@ -666,6 +666,31 @@ def main() -> list[tuple[str, tuple[str, str, str]]]:
             )
         )
 
+    # ReorProject.Reor
+    id = "ReorProject.Reor"
+    JSON = requests.get(
+        "https://api.github.com/repos/reorproject/reor/latest",
+        verify=False,
+        headers = Headers[1]
+    ).json()
+    Version = JSON["tag_name"]
+    Urls = [
+        each["browser_download_url"]
+        for each in JSON["assets"]
+        if ".exe" in each["browser_download_url"]
+    ]
+    if not version_verify(Version, id):
+        report_existed(id, Version)
+    elif do_list(id, str_pop(Version, 0), "verify"):
+        report_existed(id, Version)
+    else:
+        Commands.append(
+            (
+                command(Komac, id, list_to_str(Urls), str_pop(Version, 0), GH_TOKEN),
+                (id, Version, "write"),
+            )
+        )
+
     # Check for missing versions
     if time.strftime("%d-%H") in ("1-12", "10-12", "20-12", "30-12"):
         try:
