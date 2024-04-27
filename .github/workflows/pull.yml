@@ -1,6 +1,6 @@
 name: Auto Publish CI
 on:
- pull_request:
+ pull_request_target:
 
 jobs:
   publish:
@@ -21,4 +21,5 @@ jobs:
         run: |
           python3 -m pip install -r requirements.txt
       - name: CI
-        run: python3 src/main.py ${{ secrets.TOKEN }} debug
+        run: python3 src/main.py
+      

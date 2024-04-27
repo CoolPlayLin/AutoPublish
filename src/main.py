@@ -800,9 +800,7 @@ def main() -> list[tuple[str, tuple[str, str, str]]]:
         for each in Commands:
             if os.system(each[0]) == 0:
                 do_list(*each[1])
-
-    # Cleanup the merged branch
-    os.system(f"{Komac} cleanup --only-merged --all --token {GH_TOKEN}")
+        os.system(f"{Komac} cleanup --only-merged --all --token {GH_TOKEN}")
 
     return Commands
 
