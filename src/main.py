@@ -677,7 +677,7 @@ def main() -> list[tuple[str, tuple[str, str, str]]]:
     # ReorProject.Reor
     id = "ReorProject.Reor"
     JSON = requests.get(
-        "https://api.github.com/repos/reorproject/reor/latest",
+        "https://api.github.com/repos/reorproject/reor/releases/latest",
         verify=False,
         headers = Headers[1]
     ).json()
