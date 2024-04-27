@@ -679,13 +679,38 @@ def main() -> list[tuple[str, tuple[str, str, str]]]:
     JSON = requests.get(
         "https://api.github.com/repos/reorproject/reor/releases/latest",
         verify=False,
-        headers = Headers[1]
+        headers=Headers[1],
     ).json()
     Version = JSON["tag_name"]
     Urls = [
         each["browser_download_url"]
         for each in JSON["assets"]
         if ".exe" in each["browser_download_url"]
+    ]
+    if not version_verify(Version, id):
+        report_existed(id, Version)
+    elif do_list(id, str_pop(Version, 0), "verify"):
+        report_existed(id, Version)
+    else:
+        Commands.append(
+            (
+                command(Komac, id, list_to_str(Urls), str_pop(Version, 0), GH_TOKEN),
+                (id, Version, "write"),
+            )
+        )
+
+    # GodotEngine.GodotEngine.Mono
+    id = "GodotEngine.GodotEngine.Mono"
+    JSON = requests.get(
+        "https://api.github.com/repos/godotengine/godot/releases/latest",
+        verify=False,
+        headers=Headers[0],
+    ).json()
+    Version = JSON["tag_name"]
+    Urls = [
+        each["browser_download_url"]
+        for each in JSON["assets"]
+        if "stable_mono_win" in each["browser_download_url"]
     ]
     if not version_verify(Version, id):
         report_existed(id, Version)
