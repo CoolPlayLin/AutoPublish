@@ -827,7 +827,7 @@ def main() -> list[tuple[str, tuple[str, str, str]]]:
     # NASM.NASM
     id = "NASM.NASM"
     res = bs4.BeautifulSoup(
-        requests.get("https://nasm.us/", verify=False), "html.parser"
+        requests.get("https://nasm.us/", verify=False).text, "html.parser"
     )
     Version = res.find("td").text
     Urls = [
