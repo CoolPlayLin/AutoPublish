@@ -10,12 +10,20 @@ import time
 
 def commandLogger(executedCommand: str, returnedCode: int):
     executedCommandList = json.load(
-        open(pathlib.Path(__file__).parents[0] / "config" / "command.json", "r", encoding="utf-8").read()
+        open(
+            pathlib.Path(__file__).parents[0] / "config" / "command.json",
+            "r",
+            encoding="utf-8",
+        ).read()
     )
     executedCommandList.append(
         {executedCommand: executedCommand, returnedCode: returnedCode}
     )
-    with open(pathlib.Path(__file__).parents[0] / "config" / "command.json", "w", encoding="utf-8") as f:
+    with open(
+        pathlib.Path(__file__).parents[0] / "config" / "command.json",
+        "w",
+        encoding="utf-8",
+    ) as f:
         f.write(json.dumps(executedCommandList))
 
 
@@ -804,6 +812,28 @@ def main() -> list[tuple[str, tuple[str, str, str]]]:
         requiredKeywords=[".exe", Version.replace(".", "")],
         prefix="https://7-zip.org/",
     )
+    if not version_verify(Version, id, DEVELOP_MODE):
+        report_existed(id, Version)
+    elif do_list(id, Version, "verify"):
+        report_existed(id, Version)
+    else:
+        Commands.append(
+            (
+                command_generator(Komac, id, list_to_str(Urls), Version, GH_TOKEN),
+                (id, Version, "write"),
+            )
+        )
+
+    # NASM.NASM
+    id = "NASM.NASM"
+    res = bs4.BeautifulSoup(
+        requests.get("https://nasm.us/", verify=False), "html.parser"
+    )
+    Version = res.find("td").text
+    Urls = [
+        f"https://www.nasm.us/pub/nasm/releasebuilds/{Version}/win64/nasm-{Version}-installer-x64.exe",
+        f"https://www.nasm.us/pub/nasm/releasebuilds/{Version}/win32/nasm-{Version}-installer-x86.exe",
+    ]
     if not version_verify(Version, id, DEVELOP_MODE):
         report_existed(id, Version)
     elif do_list(id, Version, "verify"):
