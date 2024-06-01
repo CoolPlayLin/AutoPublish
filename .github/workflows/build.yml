@@ -67,7 +67,7 @@ jobs:
           }
   CI:
     if: github.event_name == 'pull_request'
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4.1.6
