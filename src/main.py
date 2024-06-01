@@ -81,9 +81,10 @@ def command_generator(
     komac: pathlib.Path, id: str, urls: str, version: str, token: str
 ) -> str:
     createdWithUrl = r"https://github.com/CoolPlayLin/AutoPublish"
-    return "{} update {} --urls {} --version {} --created-with AutoPublish --created-with-url {} --submit --token {}".format(
-        komac.__str__(), id, urls, version, createdWithUrl, token
+    command = "{} update {} --urls {} --version {} --created-with AutoPublish --created-with-url {} {} --token {}".format(
+        komac.__str__(), id, urls, version, createdWithUrl, "--submit" if not DEVELOP_MODE else "--dry-run", token
     )
+    return command
 
 
 def clean_string(string: str, keywords: dict[str, str]) -> str:
