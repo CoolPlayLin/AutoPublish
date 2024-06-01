@@ -954,13 +954,13 @@ def main() -> list[tuple[str, tuple[str, str, str]]]:
             "It's not a good time to check missing versions now, skipping version checking..."
         )
     # Updating
-    if not DEVELOP_MODE:
-        for each in Commands:
-            returnedCode = os.system(each[0])
+    for each in Commands:
+        returnedCode = os.system(each[0])
+        if not DEVELOP_MODE:
             commandLogger(each[0].replace(GH_TOKEN, "***"), returnedCode)
-            if returnedCode == 0:
-                do_list(*each[1])
-        os.system(f"{Komac} cleanup --only-merged --all --token {GH_TOKEN}")
+        if returnedCode == 0:
+            do_list(*each[1])
+    os.system(f"{Komac} cleanup --only-merged --all --token {GH_TOKEN}")
 
     return Commands
 
