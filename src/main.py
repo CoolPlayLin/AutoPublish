@@ -67,7 +67,7 @@ def report_existed(id: str, Version: str) -> None:
 
 def prepare_komac(path: str, DEVELOP_MODE: bool = False) -> pathlib.Path:
     Komac = pathlib.Path(path) / "komac.exe"
-    if not DEVELOP_MODE:
+    if not DEVELOP_MODE or os.environ.get("PULL_REQUEST_CI"):
         with open(Komac, "wb+") as f:
             file = requests.get(
                 "https://github.com/russellbanks/Komac/releases/download/nightly/komac-nightly-x86_64-pc-windows-msvc.exe",
