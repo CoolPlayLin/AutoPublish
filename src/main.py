@@ -82,7 +82,7 @@ def command_generator(
 ) -> str:
     createdWithUrl = r"https://github.com/CoolPlayLin/AutoPublish"
     command = "{} update {} --urls {} --version {} --created-with AutoPublish --created-with-url {} {} --token {}".format(
-        komac.__str__(), id, urls, version, createdWithUrl, "--submit" if not DEVELOP_MODE else "--dry-run", token
+        komac.__str__(), id, urls, version, createdWithUrl, "--submit" if not DEVELOP_MODE else "--dry-run", token if not DEVELOP_MODE else os.environ.get("GITHUB_TOKEN")
     )
     return command
 
