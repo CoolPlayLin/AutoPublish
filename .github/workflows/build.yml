@@ -82,3 +82,4 @@ jobs:
         run: python3 src/main.py
         env:
           PULL_REQUEST_CI: true
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
