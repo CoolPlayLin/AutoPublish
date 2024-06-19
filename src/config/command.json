@@ -1663,5 +1663,15 @@
     "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update UPUPOO.UPUPOO --urls https://uft.upupoo.com/install_resource/3.2.6.0/upupoo-installer.exe --version 3.2.6.0 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
     "returnedCode": 1,
     "time": "2024-06-19 02:35:19"
+  },
+  {
+    "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update DenoLand.Deno --urls https://github.com/denoland/deno/releases/download/v1.44.3/deno-x86_64-pc-windows-msvc.zip --version 1.44.3 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
+    "returnedCode": 0,
+    "time": "2024-06-19 03:14:26"
+  },
+  {
+    "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update UPUPOO.UPUPOO --urls https://uft.upupoo.com/install_resource/3.2.6.0/upupoo-installer.exe --version 3.2.6.0 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
+    "returnedCode": 1,
+    "time": "2024-06-19 03:14:26"
   }
 ]
