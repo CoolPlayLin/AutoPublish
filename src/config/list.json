@@ -519,7 +519,7 @@
   "GodotEngine.GodotEngine.Mono": ["4.2.2"],
   "ReorProject.Reor": ["v0.2.8", "v0.2.9", "v0.2.10"],
   "NASM.NASM": ["2.16.03"],
-  "7zip.7zip": ["24.06"],
+  "7zip.7zip": ["24.06", "24.07"],
   "Gleam.Gleam": ["v1.2.0", "v1.2.1"],
   "Audacity.Audacity": ["3.5.1"]
 }
