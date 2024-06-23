@@ -14,8 +14,8 @@ dependencies:
 
 devDependencies:
   '@types/node':
-    specifier: ^20.13.0
-    version: 20.14.7
+    specifier: ^20.14.8
+    version: 20.14.8
   prettier:
     specifier: ^3.3.0
     version: 3.3.2
@@ -340,8 +340,8 @@ packages:
       '@octokit/openapi-types': 22.2.0
     dev: false
 
-  /@types/node@20.14.7:
-    resolution: {integrity: sha512-uTr2m2IbJJucF3KUxgnGOZvYbN0QgkGyWxG6973HCpMYFy2KfcgYuIwkJQMQkt1VbBMlvWRbpshFTLxnxCZjKQ==}
+  /@types/node@20.14.8:
+    resolution: {integrity: sha512-DO+2/jZinXfROG7j7WKFn/3C6nFwxy2lLpgLjEXJz+0XKphZlTLJ14mo8Vfg8X5BWN6XjyESXq+LcYdT7tR3bA==}
     dependencies:
       undici-types: 5.26.5
     dev: true
