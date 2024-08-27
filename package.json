@@ -21,7 +21,7 @@
   "devDependencies": {
     "@types/node": "^20.14.12",
     "prettier": "^3.3.3",
-    "tsx": "^4.16.2"
+    "tsx": "^4.19.0"
   },
   "dependencies": {
     "@colors/colors": "^1.6.0",
