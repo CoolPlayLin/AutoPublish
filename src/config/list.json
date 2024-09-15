@@ -99,7 +99,8 @@
     "v2.4",
     "v2.5",
     "v2.6",
-    "v2.6.1"
+    "v2.6.1",
+    "v2.7"
   ],
   "Fndroid.ClashForWindows": ["0.20.29"],
   "DenoLand.Deno": [
