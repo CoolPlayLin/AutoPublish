@@ -1113,5 +1113,10 @@
     "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update Oven-sh.Bun.BaselineProfile --urls https://github.com/oven-sh/bun/releases/download/bun-v1.1.29/bun-windows-x64-baseline-profile.zip --version 1.1.29 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
     "returnedCode": 0,
     "time": "2024-09-20 08:18:20"
+  },
+  {
+    "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update KuaiFan.DooTask --urls https://github.com/kuaifan/dootask/releases/download/v0.38.27/DooTask-v0.38.27-win-arm64.exe https://github.com/kuaifan/dootask/releases/download/v0.38.27/DooTask-v0.38.27-win-x64.exe https://github.com/kuaifan/dootask/releases/download/v0.38.27/DooTask-v0.38.27-win.exe --version 0.38.27 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
+    "returnedCode": 0,
+    "time": "2024-09-22 23:14:41"
   }
 ]
