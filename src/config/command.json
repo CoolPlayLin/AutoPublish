@@ -1133,5 +1133,40 @@
     "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update Gleam.Gleam --urls https://github.com/gleam-lang/gleam/releases/download/v1.5.1/gleam-v1.5.1-x86_64-pc-windows-msvc.zip --version 1.5.1 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
     "returnedCode": 0,
     "time": "2024-09-29 01:08:15"
+  },
+  {
+    "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update PicGo.PicGo.Beta --urls https://github.com/Molunerfinn/PicGo/releases/download/v2.4.0-beta.9/PicGo-Setup-2.4.0-beta.9-ia32.exe https://github.com/Molunerfinn/PicGo/releases/download/v2.4.0-beta.9/PicGo-Setup-2.4.0-beta.9-x64.exe --version 2.4.0-beta.9 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
+    "returnedCode": 0,
+    "time": "2025-01-28 06:05:01"
+  },
+  {
+    "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update OpenJS.NodeJS --urls https://nodejs.org/dist/v/dist/v23.6.1/23.6.1//dist/v23.6.1/node-v23.6.1-arm64.msi https://nodejs.org/dist/v/dist/v23.6.1/23.6.1//dist/v23.6.1/node-v23.6.1-x64.msi --version /dist/v23.6.1/23.6.1 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
+    "returnedCode": 1,
+    "time": "2025-01-28 06:05:01"
+  },
+  {
+    "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update Oven-sh.Bun.Baseline --urls https://github.com/oven-sh/bun/releases/download/bun-v1.2.1/bun-windows-x64-baseline.zip --version 1.2.1 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
+    "returnedCode": 0,
+    "time": "2025-01-28 06:05:08"
+  },
+  {
+    "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update Oven-sh.Bun.Profile --urls https://github.com/oven-sh/bun/releases/download/bun-v1.2.1/bun-windows-x64-profile.zip --version 1.2.1 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
+    "returnedCode": 0,
+    "time": "2025-01-28 06:05:17"
+  },
+  {
+    "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update Oven-sh.Bun.BaselineProfile --urls https://github.com/oven-sh/bun/releases/download/bun-v1.2.1/bun-windows-x64-baseline-profile.zip --version 1.2.1 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
+    "returnedCode": 0,
+    "time": "2025-01-28 06:05:24"
+  },
+  {
+    "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update DOSBoxStaging.DOSBoxStaging --urls https://github.com/dosbox-staging/dosbox-staging/releases/download/v0.82.0/dosbox-staging-windows-x64-v0.82.0-setup.exe https://github.com/dosbox-staging/dosbox-staging/releases/download/v0.82.0/dosbox-staging-windows-x64-v0.82.0.zip --version 0.82.0 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
+    "returnedCode": 0,
+    "time": "2025-01-28 06:05:25"
+  },
+  {
+    "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update UPUPOO.UPUPOO --urls https://uft.upupoo.com/install_resource/3.2.9.1/upupoo-installer.exe --version 3.2.9.1 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
+    "returnedCode": 1,
+    "time": "2025-01-28 06:05:25"
   }
 ]
