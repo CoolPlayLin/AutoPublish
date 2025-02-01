@@ -1243,5 +1243,25 @@
     "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update OpenJS.NodeJS --urls https://nodejs.org/dist/v/dist/latestv23.x/23.7.0//dist/latest-v23.x/node-v23.7.0-arm64.msi https://nodejs.org/dist/v/dist/latestv23.x/23.7.0//dist/latest-v23.x/node-v23.7.0-x64.msi --version /dist/latestv23.x/23.7.0 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
     "returnedCode": 1,
     "time": "2025-01-31 04:21:35"
+  },
+  {
+    "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update Oven-sh.Bun --urls https://github.com/oven-sh/bun/releases/download/bun-v1.2.2/bun-windows-x64.zip --version 1.2.2 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
+    "returnedCode": 0,
+    "time": "2025-02-01 06:24:12"
+  },
+  {
+    "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update Oven-sh.Bun.Baseline --urls https://github.com/oven-sh/bun/releases/download/bun-v1.2.2/bun-windows-x64-baseline.zip --version 1.2.2 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
+    "returnedCode": 0,
+    "time": "2025-02-01 06:24:20"
+  },
+  {
+    "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update Oven-sh.Bun.Profile --urls https://github.com/oven-sh/bun/releases/download/bun-v1.2.2/bun-windows-x64-profile.zip --version 1.2.2 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
+    "returnedCode": 0,
+    "time": "2025-02-01 06:24:31"
+  },
+  {
+    "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update Oven-sh.Bun.BaselineProfile --urls https://github.com/oven-sh/bun/releases/download/bun-v1.2.2/bun-windows-x64-baseline-profile.zip --version 1.2.2 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
+    "returnedCode": 0,
+    "time": "2025-02-01 06:24:41"
   }
 ]
