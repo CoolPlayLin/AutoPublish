@@ -20,7 +20,7 @@
   "homepage": "https://github.com/coolplaylin/AutoPublish#readme",
   "devDependencies": {
     "@types/node": "^22.8.1",
-    "prettier": "^3.3.3",
+    "prettier": "^3.5.1",
     "tsx": "^4.19.1"
   },
   "dependencies": {
