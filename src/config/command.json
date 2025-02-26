@@ -1438,5 +1438,10 @@
     "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update OpenJS.NodeJS --urls https://nodejs.org/dist/v/dist/latest/23.9.0//dist/latest/node-v23.9.0-arm64.msi https://nodejs.org/dist/v/dist/latest/23.9.0//dist/latest/node-v23.9.0-x64.msi --version /dist/latest/23.9.0 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
     "returnedCode": 2,
     "time": "2025-02-26 17:17:26"
+  },
+  {
+    "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update OpenJS.NodeJS --urls https://nodejs.org/dist/v/dist/latestv23.x/23.9.0//dist/latest-v23.x/node-v23.9.0-arm64.msi https://nodejs.org/dist/v/dist/latestv23.x/23.9.0//dist/latest-v23.x/node-v23.9.0-x64.msi --version /dist/latestv23.x/23.9.0 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
+    "returnedCode": 2,
+    "time": "2025-02-26 21:18:21"
   }
 ]
