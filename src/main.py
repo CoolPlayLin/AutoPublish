@@ -213,21 +213,43 @@ def main(packages) -> list[tuple[str, tuple[str, str, str]]]:
                 "Authorization": "Bearer " + GH_TOKEN,
             }
         )
-    
+
     for package in packages:
         if package["enable"]:
             if package["type"] == "Github":
-                res = requests.get(
+                OriginalResponse = requests.get(
                     package["url"],
                     verify=False,
                     headers=Headers[1],
                 ).json()
+                res = (
+                    OriginalVersion[package["assets"].get("index")] or OriginalVersion
+                    if package.get("assets")
+                    else OriginalResponse
+                )
                 OriginalVersion = res["tag_name"]
-                Version = str_pop(OriginalVersion, 0) if package["version"]["removeFirstCharacter"] else OriginalVersion 
+                if package.get("skip"):
+                    if package["skip"].get("whenEqualsToLatestVersion"):
+                        if (
+                            package["skip"]["whenEqualsToLatestVersion"]["enable"]
+                            and requests.get(
+                                url=package["skip"]["whenEqualsToLatestVersion"]["url"],
+                                verify=False,
+                                headers=Headers[1],
+                            )[package["skip"]["whenEqualsToLatestVersion"]["path"]]
+                            == OriginalVersion
+                        ):
+                            continue
+                Version = (
+                    str_pop(OriginalVersion, 0)
+                    if package["version"]["removeFirstCharacter"]
+                    else OriginalVersion
+                )
                 Urls = matchWithKeyWords(
                     [each["browser_download_url"] for each in res["assets"]],
                     requiredKeywords=package["match"]["requiredKeywords"],
                     excludedKeywords=package["match"]["excludedKeywords"],
+                    necessaryKeywords=package["match"].get("necessaryKeywords") or [],
                 )
                 if not version_verify(Version, package["id"], DEVELOP_MODE):
                     report_existed(package["id"], OriginalVersion)
@@ -237,7 +259,11 @@ def main(packages) -> list[tuple[str, tuple[str, str, str]]]:
                     Commands.append(
                         (
                             command_generator(
-                                Komac, package["id"], list_to_str(Urls), Version, GH_TOKEN
+                                Komac,
+                                package["id"],
+                                list_to_str(Urls),
+                                Version,
+                                GH_TOKEN,
                             ),
                             (package["id"], OriginalVersion, "write"),
                         )
@@ -247,35 +273,6 @@ def main(packages) -> list[tuple[str, tuple[str, str, str]]]:
         else:
             print(f"{package['id']} is disabled")
             continue
-
-    # PicGo.PicGo
-    id = "PicGo.PicGo"
-    res = requests.get(
-        "https://api.github.com/repos/Molunerfinn/PicGo/releases/latest",
-        verify=False,
-        headers=Headers[1],
-    ).json()
-    Version = res["tag_name"]
-    Urls = matchWithKeyWords(
-        [each["browser_download_url"] for each in res["assets"]],
-        requiredKeywords=[".exe"],
-        excludedKeywords=["blockmap"],
-        necessaryKeywords=["ia32", "x64"],
-    )
-    if not version_verify(str_pop(Version, 0), id, DEVELOP_MODE):
-        report_existed(id, Version)
-    elif do_list(id, Version, "verify"):
-        report_existed(id, Version)
-    else:
-        Commands.append(
-            (
-                command_generator(
-                    Komac, id, list_to_str(Urls), str_pop(Version, 0), GH_TOKEN
-                ),
-                (id, Version, "write"),
-            )
-        )
-    del res, Urls, Version, id
 
     # PicGo.PicGo.Beta
     id = "PicGo.PicGo.Beta"
@@ -1000,6 +997,10 @@ def main(packages) -> list[tuple[str, tuple[str, str, str]]]:
 
 
 if __name__ == "__main__":
-    with open(pathlib.Path(__file__).parents[0] / "config" / "package.yaml", "r", encoding="utf-8") as f:
+    with open(
+        pathlib.Path(__file__).parents[0] / "config" / "package.yaml",
+        "r",
+        encoding="utf-8",
+    ) as f:
         response = main(yaml.safe_load(f))
         print("Executed Command: ", [each[0] for each in response])

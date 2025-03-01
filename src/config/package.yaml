@@ -5,8 +5,8 @@
   match:
     requiredKeywords:
       - .exe
-  excludedKeywords:
-    - .blockmap
+    excludedKeywords:
+      - .blockmap
   version:
     removeFirstCharacter: true
 - id: listen1.listen1
@@ -16,11 +16,46 @@
   match:
     requiredKeywords:
       - .exe
-  excludedKeywords:
-    - blockmap
-  necessaryKeywords:
-    - ia32
-    - x64
-    - arm64
+    excludedKeywords:
+      - blockmap
+    necessaryKeywords:
+      - ia32
+      - x64
+      - arm64
+  version:
+    removeFirstCharacter: true
+- id: PicGo.PicGo
+  enable: true
+  type: Github
+  url: https://api.github.com/repos/Molunerfinn/PicGo/releases/latest
+  match:
+    requiredKeywords:
+      - .exe
+    excludedKeywords:
+      - blockmap
+    necessaryKeywords:
+      - ia32
+      - x64
+  version:
+    removeFirstCharacter: true
+- id: PicGo.PicGo.Beta
+  type: Github
+  enable: true
+  url: https://api.github.com/repos/Molunerfinn/PicGo/releases
+  skip:
+    whenEqualsToLatestVersion:
+      enable: true
+      url: https://api.github.com/repos/Molunerfinn/PicGo/releases/latest
+      path: tag_name
+  assets:
+    index: 0
+  match:
+    requiredKeywords:
+      - .exe
+    excludedKeywords:
+      - blockmap
+    necessaryKeywords:
+      - ia32
+      - x64
   version:
     removeFirstCharacter: true
