@@ -60,3 +60,102 @@
       - msvc
     excludedKeywords:
       - denort
+- id: GoLang.Go
+  enable: true
+  type: prefixWithFilename
+  url: https://go.dev/dl/?mode=json
+  pattern: https://go.dev/dl/$filename
+  version:
+    path: version
+    removeFirstCharacter: false
+    removeCharacters:
+      - go
+  assets:
+    index: 0
+    filepath: files
+    filename: filename
+  match:
+    requiredKeywords:
+      - msi
+- id: Genymobile.scrcpy
+  enable: true
+  type: Github
+  url: https://api.github.com/repos/Genymobile/scrcpy/releases/latest
+  match:
+    requiredKeywords:
+      - win
+- id: Cloudflare.cloudflared
+  enable: true
+  type: Github
+  url: https://api.github.com/repos/cloudflare/cloudflared/releases/latest
+  version:
+    removeFirstCharacter: false
+  match:
+    requiredKeywords:
+      - .msi
+- id: xjasonlyu.tun2socks
+  enable: true
+  type: Github
+  url: https://api.github.com/repos/xjasonlyu/tun2socks/releases/latest
+  version:
+    removeFirstCharacter: false
+  match:
+    requiredKeywords:
+      - windows
+    excludedKeywords:
+      - "-v3"
+- id: Oven-sh.Bun
+  enable: true
+  type: Github
+  url: https://api.github.com/repos/oven-sh/bun/releases/latest
+  version:
+    removeCharacters:
+      - bun-v
+    removeFirstCharacter: false
+  match:
+    requiredKeywords:
+      - windows
+    excludedKeywords:
+      - baseline
+      - profile
+- id: Oven-sh.Bun.Baseline
+  enable: true
+  type: Github
+  url: https://api.github.com/repos/oven-sh/bun/releases/latest
+  version:
+    removeCharacters:
+      - bun-v
+    removeFirstCharacter: false
+  match:
+    requiredKeywords:
+      - windows
+      - baseline
+    excludedKeywords:
+      - profile
+- id: Oven-sh.Bun.Profile
+  enable: true
+  type: Github
+  url: https://api.github.com/repos/oven-sh/bun/releases/latest
+  version:
+    removeCharacters:
+      - bun-v
+    removeFirstCharacter: false
+  match:
+    requiredKeywords:
+      - windows
+      - profile
+    excludedKeywords:
+      - baseline
+- id: Oven-sh.Bun.BaselineProfile
+  enable: true
+  type: Github
+  url: https://api.github.com/repos/oven-sh/bun/releases/latest
+  version:
+    removeCharacters:
+      - bun-v
+    removeFirstCharacter: false
+  match:
+    requiredKeywords:
+      - windows
+      - profile
+      - baseline

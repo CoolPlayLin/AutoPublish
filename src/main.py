@@ -103,10 +103,22 @@ def command_generator(
     return command
 
 
-def clean_string(string: str, keywords: dict[str, str]) -> str:
-    for k in keywords:
-        string = string.replace(k, keywords[k])
-    return string
+def get_value_via_path(obj: dict, path: str):
+    _obj = obj
+    for key in path.split("."):
+        _obj = _obj[key]
+    return _obj
+
+
+def clean_string(
+    string: str, keywords: dict[str, str] = {}, removeWords: list[str] = []
+) -> str:
+    _ = string
+    for k in keywords.keys():
+        _string = string.replace(k, keywords[k])
+    for r in removeWords:
+        _string = string.replace(r, "")
+    return _string
 
 
 def str_pop(string: str, index: int) -> str:
@@ -184,6 +196,26 @@ def do_list(id: str, version: str, mode: str) -> bool | None:
             raise Exception
 
 
+def get_assets(obj: dict, config: dict):
+    _obj = obj
+    if config.get("path") != None:
+        _obj = get_value_via_path(_obj, config["path"])
+    if config.get("index") != None:
+        _obj = _obj[config["index"]]
+    return _obj
+
+
+def get_version(
+    obj: dict, config: dict["removeFirstCharacter":bool, "removeCharacters":str]
+) -> str:
+    _obj = obj
+    if config.get("removeFirstCharacter") != False:
+        _obj = str_pop(_obj, 0)
+    if config.get("removeCharacters") != None:
+        _obj = clean_string(_obj, {}, config["removeCharacters"])
+    return _obj
+
+
 def main(packages) -> list[tuple[str, tuple[str, str, str]]]:
     Commands: list[tuple[str, tuple[str, str, str]]] = []
     Komac = prepare_komac(pathlib.Path(__file__).parents[0], DEVELOP_MODE)
@@ -215,123 +247,115 @@ def main(packages) -> list[tuple[str, tuple[str, str, str]]]:
         )
 
     for package in packages:
-        if package["enable"]:
-            if package["type"] == "Github":
-                OriginalResponse = requests.get(
-                    package["url"],
-                    verify=False,
-                    headers=Headers[1],
-                ).json()
-                res = (
-                    (
-                        OriginalResponse[package["assets"].get("index")]
-                        or OriginalResponse
-                    )
-                    if package.get("assets")
-                    else OriginalResponse
-                )
-                OriginalVersion = res["tag_name"]
-                if package.get("skip"):
-                    if package["skip"].get("whenEqualsToLatestVersion"):
-                        if (
-                            package["skip"]["whenEqualsToLatestVersion"]["enable"]
-                            and requests.get(
+        if not package["enable"]:
+            print(f"{package['id']} is disabled")
+            continue
+        if package["type"] == "Github":
+            OriginalResponse = requests.get(
+                package["url"],
+                verify=False,
+                headers=Headers[1],
+            ).json()
+            res = get_assets(OriginalResponse, package.get("assets") or {})
+            OriginalVersion = res["tag_name"]
+            if package.get("skip"):
+                if package["skip"].get("whenEqualsToLatestVersion"):
+                    if (
+                        package["skip"]["whenEqualsToLatestVersion"]["enable"]
+                        and get_value_via_path(
+                            requests.get(
                                 url=package["skip"]["whenEqualsToLatestVersion"]["url"],
                                 verify=False,
                                 headers=Headers[1],
-                            ).json()[
-                                package["skip"]["whenEqualsToLatestVersion"]["path"]
-                            ]
-                            == OriginalVersion
-                        ):
-                            continue
-                Version = (
+                            ).json(),
+                            package["skip"]["whenEqualsToLatestVersion"]["path"],
+                        )
+                        == OriginalVersion
+                    ):
+                        continue
+            Version = get_version(
+                OriginalVersion,
+                package.get("version") or {},
+            )
+            Urls = matchWithKeyWords(
+                [each["browser_download_url"] for each in res["assets"]],
+                requiredKeywords=package["match"]["requiredKeywords"],
+                excludedKeywords=package["match"].get("excludedKeywords") or [],
+                necessaryKeywords=package["match"].get("necessaryKeywords") or [],
+            )
+            if not version_verify(Version, package["id"], DEVELOP_MODE):
+                report_existed(package["id"], OriginalVersion)
+            elif do_list(package["id"], OriginalVersion, "verify"):
+                report_existed(package["id"], OriginalVersion)
+            else:
+                Commands.append(
                     (
-                        str_pop(OriginalVersion, 0)
-                        if package.get("version").get("removeFirstCharacter")
-                        else OriginalVersion
+                        command_generator(
+                            Komac,
+                            package["id"],
+                            list_to_str(Urls),
+                            Version,
+                            GH_TOKEN,
+                        ),
+                        (package["id"], OriginalVersion, "write"),
                     )
-                    if package.get("version")
-                    else OriginalVersion
                 )
-                Urls = matchWithKeyWords(
-                    [each["browser_download_url"] for each in res["assets"]],
+        elif package["type"] == "prefixWithFilename":
+            OriginalResponse = requests.get(
+                url=package["url"],
+                verify=False,
+                headers=Headers[0],
+            ).json()
+            res = get_assets(OriginalResponse, package["assets"])
+            OriginalVersion = get_value_via_path(res, package["version"]["path"])
+            Urls = [
+                package["pattern"].replace("$filename", filename)
+                for filename in matchWithKeyWords(
+                    [
+                        u.get(package["assets"]["filename"])
+                        for u in get_value_via_path(res, package["assets"]["filepath"])
+                    ],
                     requiredKeywords=package["match"]["requiredKeywords"],
-                    excludedKeywords=package["match"]["excludedKeywords"],
+                    excludedKeywords=package["match"].get("excludedKeywords") or [],
                     necessaryKeywords=package["match"].get("necessaryKeywords") or [],
                 )
-                if not version_verify(Version, package["id"], DEVELOP_MODE):
-                    report_existed(package["id"], OriginalVersion)
-                elif do_list(package["id"], OriginalVersion, "verify"):
-                    report_existed(package["id"], OriginalVersion)
-                else:
-                    Commands.append(
-                        (
-                            command_generator(
-                                Komac,
-                                package["id"],
-                                list_to_str(Urls),
-                                Version,
-                                GH_TOKEN,
-                            ),
-                            (package["id"], OriginalVersion, "write"),
-                        )
-                    )
+            ]
+            Version = get_version(
+                OriginalVersion,
+                package.get("version") or {},
+            )
+            print(
+                (
+                    command_generator(
+                        Komac,
+                        package["id"],
+                        list_to_str(Urls),
+                        Version,
+                        GH_TOKEN,
+                    ),
+                    (package["id"], OriginalVersion, "write"),
+                )
+            )
+            exit(0)
+            if not version_verify(Version, package["id"], DEVELOP_MODE):
+                report_existed(package["id"], OriginalVersion)
+            elif do_list(package["id"], OriginalVersion, "verify"):
+                report_existed(package["id"], OriginalVersion)
             else:
-                print(f"""{package['type']} hasn't been supported yet""")
+                Commands.append(
+                    (
+                        command_generator(
+                            Komac,
+                            package["id"],
+                            list_to_str(Urls),
+                            Version,
+                            GH_TOKEN,
+                        ),
+                        (package["id"], OriginalVersion, "write"),
+                    )
+                )
         else:
-            print(f"{package['id']} is disabled")
-            continue
-
-    # Golang.Go
-    id = "GoLang.Go"
-    res = requests.get(
-        "https://go.dev/dl/?mode=json", verify=False, headers=Headers[0]
-    ).json()[0]
-    Version = res["version"].replace("go", "")
-    Urls = matchWithKeyWords(
-        ["https://go.dev/dl/" + each["filename"] for each in res["files"]],
-        requiredKeywords=["msi"],
-    )
-    if not version_verify(Version, id, DEVELOP_MODE):
-        report_existed(id, Version)
-    elif do_list(id, Version, "verify"):
-        report_existed(id, Version)
-    else:
-        Commands.append(
-            (
-                command_generator(Komac, id, list_to_str(Urls), Version, GH_TOKEN),
-                (id, Version, "write"),
-            )
-        )
-    del res, Urls, Version, id
-
-    # Genymobile.scrcpy
-    id = "Genymobile.scrcpy"
-    res = requests.get(
-        "https://api.github.com/repos/Genymobile/scrcpy/releases/latest",
-        verify=False,
-        headers=Headers[1],
-    ).json()
-    Version = res["tag_name"]
-    Urls = matchWithKeyWords(
-        [each["browser_download_url"] for each in res["assets"]],
-        requiredKeywords=["win"],
-    )
-    if not version_verify(str_pop(Version, 0), id, DEVELOP_MODE):
-        report_existed(id, Version)
-    elif do_list(id, Version, "verify"):
-        report_existed(id, Version)
-    else:
-        Commands.append(
-            (
-                command_generator(
-                    Komac, id, list_to_str(Urls), str_pop(Version, 0), GH_TOKEN
-                ),
-                (id, Version, "write"),
-            )
-        )
-    del res, Urls, Version, id
+            print(f"""{package['type']} hasn't been supported yet""")
 
     # OpenJS.NodeJS
     id = "OpenJS.NodeJS"
@@ -384,57 +408,6 @@ def main(packages) -> list[tuple[str, tuple[str, str, str]]]:
         )
     del Urls, Version, id
 
-    # Cloudflare.cloudflared
-    id = "Cloudflare.cloudflared"
-    res = requests.get(
-        "https://api.github.com/repos/cloudflare/cloudflared/releases/latest",
-        verify=False,
-        headers=Headers[1],
-    ).json()
-    Version = res["tag_name"]
-    Urls = matchWithKeyWords(
-        [each["browser_download_url"] for each in res["assets"]],
-        requiredKeywords=[".msi"],
-    )
-    if not version_verify(Version, id, DEVELOP_MODE):
-        report_existed(id, Version)
-    elif do_list(id, Version, "verify"):
-        report_existed(id, Version)
-    else:
-        Commands.append(
-            (
-                command_generator(Komac, id, list_to_str(Urls), Version, GH_TOKEN),
-                (id, Version, "write"),
-            )
-        )
-    del res, Urls, Version, id
-
-    # xjasonlyu.tun2socks
-    id = "xjasonlyu.tun2socks"
-    res = requests.get(
-        "https://api.github.com/repos/xjasonlyu/tun2socks/releases/latest",
-        verify=False,
-        headers=Headers[1],
-    ).json()
-    Version = res["tag_name"]
-    Urls = matchWithKeyWords(
-        [each["browser_download_url"] for each in res["assets"]],
-        requiredKeywords=["windows"],
-        excludedKeywords=["-v3"],
-    )
-    if not version_verify(Version, id, DEVELOP_MODE):
-        report_existed(id, Version)
-    elif do_list(id, Version, "verify"):
-        report_existed(id, Version)
-    else:
-        Commands.append(
-            (
-                command_generator(Komac, id, list_to_str(Urls), Version, GH_TOKEN),
-                (id, Version, "write"),
-            )
-        )
-    del res, Urls, Version, id
-
     # sf-yuzifu.bcm_convertor
     id = "sf-yuzifu.bcm_convertor"
     res = requests.get(
@@ -465,109 +438,6 @@ def main(packages) -> list[tuple[str, tuple[str, str, str]]]:
                 command_generator(
                     Komac, id, list_to_str(Urls), str_pop(Version, 0), GH_TOKEN
                 ),
-                (id, Version, "write"),
-            )
-        )
-    del res, Urls, Version, id
-
-    # Oven-sh.Bun
-    id = "Oven-sh.Bun"
-    res = requests.get(
-        "https://api.github.com/repos/oven-sh/bun/releases/latest",
-        verify=False,
-        headers=Headers[1],
-    ).json()
-    Version = res["tag_name"].replace("bun-v", "")
-    Urls = matchWithKeyWords(
-        [each["browser_download_url"] for each in res["assets"]],
-        requiredKeywords=["windows"],
-        excludedKeywords=["baseline", "profile"],
-    )
-    if not version_verify(Version, id, DEVELOP_MODE):
-        report_existed(id, Version)
-    elif do_list(id, Version, "verify"):
-        report_existed(id, Version)
-    else:
-        Commands.append(
-            (
-                command_generator(Komac, id, list_to_str(Urls), Version, GH_TOKEN),
-                (id, Version, "write"),
-            )
-        )
-    del res, Urls, Version, id
-
-    # Oven-sh.Bun.Baseline
-    id = "Oven-sh.Bun.Baseline"
-    res = requests.get(
-        "https://api.github.com/repos/oven-sh/bun/releases/latest",
-        verify=False,
-        headers=Headers[1],
-    ).json()
-    Version = res["tag_name"].replace("bun-v", "")
-    Urls = matchWithKeyWords(
-        [each["browser_download_url"] for each in res["assets"]],
-        requiredKeywords=["windows", "baseline"],
-        excludedKeywords=["profile"],
-    )
-    if not version_verify(Version, id, DEVELOP_MODE):
-        report_existed(id, Version)
-    elif do_list(id, Version, "verify"):
-        report_existed(id, Version)
-    else:
-        Commands.append(
-            (
-                command_generator(Komac, id, list_to_str(Urls), Version, GH_TOKEN),
-                (id, Version, "write"),
-            )
-        )
-    del res, Urls, Version, id
-
-    # Oven-sh.Bun.Profile
-    id = "Oven-sh.Bun.Profile"
-    res = requests.get(
-        "https://api.github.com/repos/oven-sh/bun/releases/latest",
-        verify=False,
-        headers=Headers[1],
-    ).json()
-    Version = res["tag_name"].replace("bun-v", "")
-    Urls = matchWithKeyWords(
-        [each["browser_download_url"] for each in res["assets"]],
-        requiredKeywords=["windows", "profile"],
-        excludedKeywords=["baseline"],
-    )
-    if not version_verify(Version, id, DEVELOP_MODE):
-        report_existed(id, Version)
-    elif do_list(id, Version, "verify"):
-        report_existed(id, Version)
-    else:
-        Commands.append(
-            (
-                command_generator(Komac, id, list_to_str(Urls), Version, GH_TOKEN),
-                (id, Version, "write"),
-            )
-        )
-    del res, Urls, Version, id
-
-    # Oven-sh.Bun.BaselineProfile
-    id = "Oven-sh.Bun.BaselineProfile"
-    res = requests.get(
-        "https://api.github.com/repos/oven-sh/bun/releases/latest",
-        verify=False,
-        headers=Headers[1],
-    ).json()
-    Version = res["tag_name"].replace("bun-v", "")
-    Urls = matchWithKeyWords(
-        [each["browser_download_url"] for each in res["assets"]],
-        requiredKeywords=["windows", "baseline", "profile"],
-    )
-    if not version_verify(Version, id, DEVELOP_MODE):
-        report_existed(id, Version)
-    elif do_list(id, Version, "verify"):
-        report_existed(id, Version)
-    else:
-        Commands.append(
-            (
-                command_generator(Komac, id, list_to_str(Urls), Version, GH_TOKEN),
                 (id, Version, "write"),
             )
         )
