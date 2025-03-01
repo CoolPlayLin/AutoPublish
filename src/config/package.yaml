@@ -159,3 +159,57 @@
       - windows
       - profile
       - baseline
+- id: Gleam.Gleam
+  enable: true
+  type: Github
+  url: https://api.github.com/repos/gleam-lang/gleam/releases/latest
+  match:
+    requiredKeywords:
+      - msvc
+    excludedKeywords:
+      - sha
+- id: GodotEngine.GodotEngine.Mono
+  url: https://api.github.com/repos/godotengine/godot/releases/latest
+  type: Github
+  enable: true
+  version:
+    removeCharacters:
+      - -stable
+    removeFirstCharacter: false
+  match:
+    requiredKeywords:
+      - stable_mono_win
+- id: ReorProject.Reor
+  url: https://api.github.com/repos/reorproject/reor/releases/latest
+  type: Github
+  enable: true
+  match:
+    requiredKeywords:
+      - .exe
+- id: Audacity.Audacity
+  url: https://api.github.com/repos/audacity/audacity/releases/latest
+  version:
+    removeFirstCharacter: false
+    removeCharacters:
+      - Audacity-
+  type: Github
+  enable: true
+  match:
+    requiredKeywords:
+      - .exe
+- id: SABnzbdTeam.SABnzbd
+  url: https://api.github.com/repos/sabnzbd/sabnzbd/releases/latest
+  version:
+    removeFirstCharacter: false
+  type: Github
+  enable: true
+  match:
+    requiredKeywords:
+      - .exe
+- id: DOSBoxStaging.DOSBoxStaging
+  url: https://api.github.com/repos/dosbox-staging/dosbox-staging/releases/latest
+  type: Github
+  enable: true
+  match:
+    requiredKeywords:
+      - windows
