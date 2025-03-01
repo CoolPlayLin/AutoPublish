@@ -336,7 +336,6 @@ def main(packages) -> list[tuple[str, tuple[str, str, str]]]:
                     (package["id"], OriginalVersion, "write"),
                 )
             )
-            exit(0)
             if not version_verify(Version, package["id"], DEVELOP_MODE):
                 report_existed(package["id"], OriginalVersion)
             elif do_list(package["id"], OriginalVersion, "verify"):
