@@ -1,0 +1,26 @@
+- id: KuaiFan.DooTask
+  enable: true
+  type: Github
+  url: https://api.github.com/repos/kuaifan/dootask/releases/latest
+  match:
+    requiredKeywords:
+      - .exe
+  excludedKeywords:
+    - .blockmap
+  version:
+    removeFirstCharacter: true
+- id: listen1.listen1
+  enable: true
+  type: Github
+  url: https://api.github.com/repos/listen1/listen1_desktop/releases/latest
+  match:
+    requiredKeywords:
+      - .exe
+  excludedKeywords:
+    - blockmap
+  necessaryKeywords:
+    - ia32
+    - x64
+    - arm64
+  version:
+    removeFirstCharacter: true

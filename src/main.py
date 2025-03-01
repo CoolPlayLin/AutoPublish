@@ -6,6 +6,7 @@ import os
 import json
 import bs4
 import time
+import yaml
 
 
 def commandLogger(executedCommand: str, returnedCode: int):
@@ -183,7 +184,7 @@ def do_list(id: str, version: str, mode: str) -> bool | None:
             raise Exception
 
 
-def main() -> list[tuple[str, tuple[str, str, str]]]:
+def main(packages) -> list[tuple[str, tuple[str, str, str]]]:
     Commands: list[tuple[str, tuple[str, str, str]]] = []
     Komac = prepare_komac(pathlib.Path(__file__).parents[0], DEVELOP_MODE)
     Headers = [
@@ -212,63 +213,40 @@ def main() -> list[tuple[str, tuple[str, str, str]]]:
                 "Authorization": "Bearer " + GH_TOKEN,
             }
         )
-
-    # KuaiFan.DooTask
-    id = "KuaiFan.DooTask"
-    res = requests.get(
-        "https://api.github.com/repos/kuaifan/dootask/releases/latest",
-        verify=False,
-        headers=Headers[1],
-    ).json()
-    Version = res["tag_name"]
-    Urls = matchWithKeyWords(
-        [each["browser_download_url"] for each in res["assets"]],
-        requiredKeywords=[".exe"],
-        excludedKeywords=["blockmap"],
-    )
-    if not version_verify(str_pop(Version, 0), id, DEVELOP_MODE):
-        report_existed(id, Version)
-    elif do_list(id, Version, "verify"):
-        report_existed(id, Version)
-    else:
-        Commands.append(
-            (
-                command_generator(
-                    Komac, id, list_to_str(Urls), str_pop(Version, 0), GH_TOKEN
-                ),
-                (id, Version, "write"),
-            )
-        )
-    del res, Urls, Version, id
-
-    # listen1.listen1
-    id = "listen1.listen1"
-    res = requests.get(
-        "https://api.github.com/repos/listen1/listen1_desktop/releases/latest",
-        verify=False,
-        headers=Headers[1],
-    ).json()
-    Version = res["tag_name"]
-    Urls = matchWithKeyWords(
-        [each["browser_download_url"] for each in res["assets"]],
-        requiredKeywords=[".exe"],
-        excludedKeywords=["blockmap"],
-        necessaryKeywords=["ia32", "x64", "arm64"],
-    )
-    if not version_verify(str_pop(Version, 0), id, DEVELOP_MODE):
-        report_existed(id, Version)
-    elif do_list(id, Version, "verify"):
-        report_existed(id, Version)
-    else:
-        Commands.append(
-            (
-                command_generator(
-                    Komac, id, list_to_str(Urls), str_pop(Version, 0), GH_TOKEN
-                ),
-                (id, Version, "write"),
-            )
-        )
-    del res, Urls, Version, id
+    
+    for package in packages:
+        if package["enable"]:
+            if package["type"] == "Github":
+                res = requests.get(
+                    package["url"],
+                    verify=False,
+                    headers=Headers[1],
+                ).json()
+                OriginalVersion = res["tag_name"]
+                Version = str_pop(OriginalVersion, 0) if package["version"]["removeFirstCharacter"] else OriginalVersion 
+                Urls = matchWithKeyWords(
+                    [each["browser_download_url"] for each in res["assets"]],
+                    requiredKeywords=package["match"]["requiredKeywords"],
+                    excludedKeywords=package["match"]["excludedKeywords"],
+                )
+                if not version_verify(Version, package["id"], DEVELOP_MODE):
+                    report_existed(package["id"], OriginalVersion)
+                elif do_list(package["id"], OriginalVersion, "verify"):
+                    report_existed(package["id"], OriginalVersion)
+                else:
+                    Commands.append(
+                        (
+                            command_generator(
+                                Komac, package["id"], list_to_str(Urls), Version, GH_TOKEN
+                            ),
+                            (package["id"], OriginalVersion, "write"),
+                        )
+                    )
+            else:
+                print(f"""{package['type']} hasn't been supported yet""")
+        else:
+            print(f"{package['id']} is disabled")
+            continue
 
     # PicGo.PicGo
     id = "PicGo.PicGo"
@@ -1022,4 +1000,6 @@ def main() -> list[tuple[str, tuple[str, str, str]]]:
 
 
 if __name__ == "__main__":
-    print("Executed Command: ", [each[0] for each in main()])
+    with open(pathlib.Path(__file__).parents[0] / "config" / "package.yaml", "r", encoding="utf-8") as f:
+        response = main(yaml.safe_load(f))
+        print("Executed Command: ", [each[0] for each in response])
