@@ -7,8 +7,6 @@
       - .exe
     excludedKeywords:
       - .blockmap
-  version:
-    removeFirstCharacter: true
 - id: listen1.listen1
   enable: true
   type: Github
@@ -22,8 +20,6 @@
       - ia32
       - x64
       - arm64
-  version:
-    removeFirstCharacter: true
 - id: PicGo.PicGo
   enable: true
   type: Github
@@ -36,8 +32,6 @@
     necessaryKeywords:
       - ia32
       - x64
-  version:
-    removeFirstCharacter: true
 - id: PicGo.PicGo.Beta
   type: Github
   enable: true
@@ -57,5 +51,12 @@
     necessaryKeywords:
       - ia32
       - x64
-  version:
-    removeFirstCharacter: true
+- id: DenoLand.Deno
+  type: Github
+  enable: true
+  url: https://api.github.com/repos/denoland/deno/releases/latest
+  match:
+    requiredKeywords:
+      - msvc
+    excludedKeywords:
+      - denort

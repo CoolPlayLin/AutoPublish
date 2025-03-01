@@ -223,7 +223,10 @@ def main(packages) -> list[tuple[str, tuple[str, str, str]]]:
                     headers=Headers[1],
                 ).json()
                 res = (
-                    OriginalVersion[package["assets"].get("index")] or OriginalVersion
+                    (
+                        OriginalResponse[package["assets"].get("index")]
+                        or OriginalResponse
+                    )
                     if package.get("assets")
                     else OriginalResponse
                 )
@@ -236,13 +239,19 @@ def main(packages) -> list[tuple[str, tuple[str, str, str]]]:
                                 url=package["skip"]["whenEqualsToLatestVersion"]["url"],
                                 verify=False,
                                 headers=Headers[1],
-                            )[package["skip"]["whenEqualsToLatestVersion"]["path"]]
+                            ).json()[
+                                package["skip"]["whenEqualsToLatestVersion"]["path"]
+                            ]
                             == OriginalVersion
                         ):
                             continue
                 Version = (
-                    str_pop(OriginalVersion, 0)
-                    if package["version"]["removeFirstCharacter"]
+                    (
+                        str_pop(OriginalVersion, 0)
+                        if package.get("version").get("removeFirstCharacter")
+                        else OriginalVersion
+                    )
+                    if package.get("version")
                     else OriginalVersion
                 )
                 Urls = matchWithKeyWords(
@@ -273,72 +282,6 @@ def main(packages) -> list[tuple[str, tuple[str, str, str]]]:
         else:
             print(f"{package['id']} is disabled")
             continue
-
-    # PicGo.PicGo.Beta
-    id = "PicGo.PicGo.Beta"
-    res = requests.get(
-        "https://api.github.com/repos/Molunerfinn/PicGo/releases",
-        verify=False,
-        headers=Headers[1],
-    ).json()[0]
-    Version = res["tag_name"]
-    Urls = matchWithKeyWords(
-        [each["browser_download_url"] for each in res["assets"]],
-        requiredKeywords=[".exe"],
-        excludedKeywords=["blockmap"],
-        necessaryKeywords=["ia32", "x64"],
-    )
-    if (
-        not version_verify(str_pop(Version, 0), id, DEVELOP_MODE)
-        or Version
-        == requests.get(
-            "https://api.github.com/repos/Molunerfinn/PicGo/releases/latest",
-            verify=False,
-            headers=Headers[1],
-        ).json()["tag_name"]
-    ):
-        report_existed(id, Version)
-    elif do_list(id, Version, "verify"):
-        report_existed(id, Version)
-    else:
-
-        Commands.append(
-            (
-                command_generator(
-                    Komac, id, list_to_str(Urls), str_pop(Version, 0), GH_TOKEN
-                ),
-                (id, Version, "write"),
-            )
-        )
-    del res, Urls, Version, id
-
-    # DenoLand.Deno
-    id = "DenoLand.Deno"
-    res = requests.get(
-        "https://api.github.com/repos/denoland/deno/releases/latest",
-        verify=False,
-        headers=Headers[1],
-    ).json()
-    Version = res["tag_name"]
-    Urls = matchWithKeyWords(
-        [each["browser_download_url"] for each in res["assets"]],
-        requiredKeywords=["msvc"],
-        excludedKeywords=["denort"],
-    )
-    if not version_verify(str_pop(Version, 0), id, DEVELOP_MODE):
-        report_existed(id, Version)
-    elif do_list(id, Version, "verify"):
-        report_existed(id, Version)
-    else:
-        Commands.append(
-            (
-                command_generator(
-                    Komac, id, list_to_str(Urls), str_pop(Version, 0), GH_TOKEN
-                ),
-                (id, Version, "write"),
-            )
-        )
-    del res, Urls, Version, id
 
     # Golang.Go
     id = "GoLang.Go"
