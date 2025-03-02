@@ -60,6 +60,7 @@
       - msvc
     excludedKeywords:
       - denort
+      - sha256sum
 - id: GoLang.Go
   enable: true
   type: prefixWithFilename
