@@ -6,6 +6,7 @@ import os
 import json
 import bs4
 import time
+import yaml
 
 
 def commandLogger(executedCommand: str, returnedCode: int):
@@ -102,10 +103,22 @@ def command_generator(
     return command
 
 
-def clean_string(string: str, keywords: dict[str, str]) -> str:
-    for k in keywords:
-        string = string.replace(k, keywords[k])
-    return string
+def get_value_via_path(obj: dict, path: str):
+    _obj = obj
+    for key in path.split("."):
+        _obj = _obj[key]
+    return _obj
+
+
+def clean_string(
+    string: str, keywords: dict[str, str] = {}, removeWords: list[str] = []
+) -> str:
+    _string = string
+    for k in keywords.keys():
+        _string = _string.replace(k, keywords[k])
+    for r in removeWords:
+        _string = _string.replace(r, "")
+    return _string
 
 
 def str_pop(string: str, index: int) -> str:
@@ -116,19 +129,13 @@ def str_pop(string: str, index: int) -> str:
     return i
 
 
-def list_to_str(List: list) -> str:
-    new = str(List)
-    new = clean_string(
-        new,
-        {
-            "[": "",
-            "]": "",
-            " ": "",
-            "'": "",
-            ",": " ",
-        },
-    )
-    return new
+def list_to_str(obj):
+    _obj = []
+    for index, each in enumerate(obj):
+        _obj.append(each)
+        if index + 1 != len(obj):
+            _obj.append(" ")
+    return str("").join(_obj)
 
 
 def version_verify(version: str, id: str, DEVELOP_MODE: bool = False) -> bool:
@@ -183,7 +190,27 @@ def do_list(id: str, version: str, mode: str) -> bool | None:
             raise Exception
 
 
-def main() -> list[tuple[str, tuple[str, str, str]]]:
+def get_assets(obj: dict, config: dict):
+    _obj = obj
+    if config.get("path") != None:
+        _obj = get_value_via_path(_obj, config["path"])
+    if config.get("index") != None:
+        _obj = _obj[config["index"]]
+    return _obj
+
+
+def get_version(
+    obj: str, config: dict["removeFirstCharacter":bool, "removeCharacters":str]
+) -> str:
+    _obj = obj
+    if config.get("removeFirstCharacter") != False:
+        _obj = str_pop(_obj, 0)
+    if config.get("removeCharacters") != None:
+        _obj = clean_string(_obj, {}, config["removeCharacters"])
+    return _obj
+
+
+def main(packages: list[dict]) -> list[tuple[str, tuple[str, str, str]]]:
     Commands: list[tuple[str, tuple[str, str, str]]] = []
     Komac = prepare_komac(pathlib.Path(__file__).parents[0], DEVELOP_MODE)
     Headers = [
@@ -213,309 +240,100 @@ def main() -> list[tuple[str, tuple[str, str, str]]]:
             }
         )
 
-    # KuaiFan.DooTask
-    id = "KuaiFan.DooTask"
-    res = requests.get(
-        "https://api.github.com/repos/kuaifan/dootask/releases/latest",
-        verify=False,
-        headers=Headers[1],
-    ).json()
-    Version = res["tag_name"]
-    Urls = matchWithKeyWords(
-        [each["browser_download_url"] for each in res["assets"]],
-        requiredKeywords=[".exe"],
-        excludedKeywords=["blockmap"],
-    )
-    if not version_verify(str_pop(Version, 0), id, DEVELOP_MODE):
-        report_existed(id, Version)
-    elif do_list(id, Version, "verify"):
-        report_existed(id, Version)
-    else:
-        Commands.append(
-            (
-                command_generator(
-                    Komac, id, list_to_str(Urls), str_pop(Version, 0), GH_TOKEN
-                ),
-                (id, Version, "write"),
+    for package in packages:
+        if not package["enable"]:
+            print(f"{package['id']} is disabled")
+            continue
+        Urls = []
+        OriginalVersion = ""
+        Version = ""
+        if package["type"] == "Github":
+            OriginalResponse = requests.get(
+                package["url"],
+                verify=False,
+                headers=Headers[1],
+            ).json()
+            res = get_assets(OriginalResponse, package.get("assets") or {})
+            OriginalVersion = res["tag_name"]
+            if package.get("skip"):
+                if package["skip"].get("whenEqualsToLatestVersion"):
+                    if (
+                        package["skip"]["whenEqualsToLatestVersion"]["enable"]
+                        and get_value_via_path(
+                            requests.get(
+                                url=package["skip"]["whenEqualsToLatestVersion"]["url"],
+                                verify=False,
+                                headers=Headers[1],
+                            ).json(),
+                            package["skip"]["whenEqualsToLatestVersion"]["path"],
+                        )
+                        == OriginalVersion
+                    ):
+                        continue
+            Version = get_version(
+                OriginalVersion,
+                package.get("version") or {},
             )
-        )
-    del res, Urls, Version, id
-
-    # listen1.listen1
-    id = "listen1.listen1"
-    res = requests.get(
-        "https://api.github.com/repos/listen1/listen1_desktop/releases/latest",
-        verify=False,
-        headers=Headers[1],
-    ).json()
-    Version = res["tag_name"]
-    Urls = matchWithKeyWords(
-        [each["browser_download_url"] for each in res["assets"]],
-        requiredKeywords=[".exe"],
-        excludedKeywords=["blockmap"],
-        necessaryKeywords=["ia32", "x64", "arm64"],
-    )
-    if not version_verify(str_pop(Version, 0), id, DEVELOP_MODE):
-        report_existed(id, Version)
-    elif do_list(id, Version, "verify"):
-        report_existed(id, Version)
-    else:
-        Commands.append(
-            (
-                command_generator(
-                    Komac, id, list_to_str(Urls), str_pop(Version, 0), GH_TOKEN
-                ),
-                (id, Version, "write"),
+            Urls = matchWithKeyWords(
+                [each["browser_download_url"] for each in res["assets"]],
+                requiredKeywords=package["match"]["requiredKeywords"],
+                excludedKeywords=package["match"].get("excludedKeywords") or [],
+                necessaryKeywords=package["match"].get("necessaryKeywords") or [],
             )
-        )
-    del res, Urls, Version, id
-
-    # PicGo.PicGo
-    id = "PicGo.PicGo"
-    res = requests.get(
-        "https://api.github.com/repos/Molunerfinn/PicGo/releases/latest",
-        verify=False,
-        headers=Headers[1],
-    ).json()
-    Version = res["tag_name"]
-    Urls = matchWithKeyWords(
-        [each["browser_download_url"] for each in res["assets"]],
-        requiredKeywords=[".exe"],
-        excludedKeywords=["blockmap"],
-        necessaryKeywords=["ia32", "x64"],
-    )
-    if not version_verify(str_pop(Version, 0), id, DEVELOP_MODE):
-        report_existed(id, Version)
-    elif do_list(id, Version, "verify"):
-        report_existed(id, Version)
-    else:
-        Commands.append(
-            (
-                command_generator(
-                    Komac, id, list_to_str(Urls), str_pop(Version, 0), GH_TOKEN
-                ),
-                (id, Version, "write"),
+        elif package["type"] == "prefixWithFilename":
+            OriginalResponse = requests.get(
+                url=package["url"],
+                verify=False,
+                headers=Headers[0],
+            ).json()
+            res = get_assets(OriginalResponse, package["assets"])
+            OriginalVersion = get_value_via_path(res, package["version"]["path"])
+            Urls = [
+                package["pattern"].replace("$filename", filename)
+                for filename in matchWithKeyWords(
+                    [
+                        u.get(package["assets"]["filename"])
+                        for u in get_value_via_path(res, package["assets"]["filepath"])
+                    ],
+                    requiredKeywords=package["match"]["requiredKeywords"],
+                    excludedKeywords=package["match"].get("excludedKeywords") or [],
+                    necessaryKeywords=package["match"].get("necessaryKeywords") or [],
+                )
+            ]
+            Version = get_version(
+                OriginalVersion,
+                package.get("version") or {},
             )
-        )
-    del res, Urls, Version, id
-
-    # PicGo.PicGo.Beta
-    id = "PicGo.PicGo.Beta"
-    res = requests.get(
-        "https://api.github.com/repos/Molunerfinn/PicGo/releases",
-        verify=False,
-        headers=Headers[1],
-    ).json()[0]
-    Version = res["tag_name"]
-    Urls = matchWithKeyWords(
-        [each["browser_download_url"] for each in res["assets"]],
-        requiredKeywords=[".exe"],
-        excludedKeywords=["blockmap"],
-        necessaryKeywords=["ia32", "x64"],
-    )
-    if (
-        not version_verify(str_pop(Version, 0), id, DEVELOP_MODE)
-        or Version
-        == requests.get(
-            "https://api.github.com/repos/Molunerfinn/PicGo/releases/latest",
-            verify=False,
-            headers=Headers[1],
-        ).json()["tag_name"]
-    ):
-        report_existed(id, Version)
-    elif do_list(id, Version, "verify"):
-        report_existed(id, Version)
-    else:
-
-        Commands.append(
-            (
-                command_generator(
-                    Komac, id, list_to_str(Urls), str_pop(Version, 0), GH_TOKEN
-                ),
-                (id, Version, "write"),
+        elif package["type"] == "redirectedFromUrl":
+            OriginalResponse = requests.get(
+                url=package["url"], verify=False, headers=Headers[0]
             )
-        )
-    del res, Urls, Version, id
-
-    # DenoLand.Deno
-    id = "DenoLand.Deno"
-    res = requests.get(
-        "https://api.github.com/repos/denoland/deno/releases/latest",
-        verify=False,
-        headers=Headers[1],
-    ).json()
-    Version = res["tag_name"]
-    Urls = matchWithKeyWords(
-        [each["browser_download_url"] for each in res["assets"]],
-        requiredKeywords=["msvc"],
-        excludedKeywords=["denort"],
-    )
-    if not version_verify(str_pop(Version, 0), id, DEVELOP_MODE):
-        report_existed(id, Version)
-    elif do_list(id, Version, "verify"):
-        report_existed(id, Version)
-    else:
-        Commands.append(
-            (
-                command_generator(
-                    Komac, id, list_to_str(Urls), str_pop(Version, 0), GH_TOKEN
-                ),
-                (id, Version, "write"),
+            res = OriginalResponse.url
+            Urls = [res]
+            OriginalVersion = get_version(
+                res, package.get("version") or {"removeFirstCharacter": False}
             )
-        )
-    del res, Urls, Version, id
-
-    # Golang.Go
-    id = "GoLang.Go"
-    res = requests.get(
-        "https://go.dev/dl/?mode=json", verify=False, headers=Headers[0]
-    ).json()[0]
-    Version = res["version"].replace("go", "")
-    Urls = matchWithKeyWords(
-        ["https://go.dev/dl/" + each["filename"] for each in res["files"]],
-        requiredKeywords=["msi"],
-    )
-    if not version_verify(Version, id, DEVELOP_MODE):
-        report_existed(id, Version)
-    elif do_list(id, Version, "verify"):
-        report_existed(id, Version)
-    else:
-        Commands.append(
-            (
-                command_generator(Komac, id, list_to_str(Urls), Version, GH_TOKEN),
-                (id, Version, "write"),
+            Version = OriginalVersion
+        else:
+            print(f"""{package['type']} hasn't been supported yet""")
+            continue
+        if not version_verify(Version, package["id"], DEVELOP_MODE):
+            report_existed(package["id"], OriginalVersion)
+        elif do_list(package["id"], OriginalVersion, "verify"):
+            report_existed(package["id"], OriginalVersion)
+        else:
+            Commands.append(
+                (
+                    command_generator(
+                        Komac,
+                        package["id"],
+                        list_to_str(Urls),
+                        Version,
+                        GH_TOKEN,
+                    ),
+                    (package["id"], OriginalVersion, "write"),
+                )
             )
-        )
-    del res, Urls, Version, id
-
-    # Genymobile.scrcpy
-    id = "Genymobile.scrcpy"
-    res = requests.get(
-        "https://api.github.com/repos/Genymobile/scrcpy/releases/latest",
-        verify=False,
-        headers=Headers[1],
-    ).json()
-    Version = res["tag_name"]
-    Urls = matchWithKeyWords(
-        [each["browser_download_url"] for each in res["assets"]],
-        requiredKeywords=["win"],
-    )
-    if not version_verify(str_pop(Version, 0), id, DEVELOP_MODE):
-        report_existed(id, Version)
-    elif do_list(id, Version, "verify"):
-        report_existed(id, Version)
-    else:
-        Commands.append(
-            (
-                command_generator(
-                    Komac, id, list_to_str(Urls), str_pop(Version, 0), GH_TOKEN
-                ),
-                (id, Version, "write"),
-            )
-        )
-    del res, Urls, Version, id
-
-    # OpenJS.NodeJS
-    id = "OpenJS.NodeJS"
-    Urls: list[str] = [
-        each["href"]
-        for each in bs4.BeautifulSoup(
-            requests.get("https://nodejs.org/dist/latest/", verify=False).text,
-            "html.parser",
-        ).pre.find_all("a")
-        if "msi" in each["href"]
-    ]
-    Version = clean_string(
-        Urls[0], {"node-v": "", "-": "", ".msi": "", "arm64": "", "x64": "", "x86": ""}
-    )
-    Urls = [
-        "https://nodejs.org/dist/{}/{}".format("v" + Version, each) for each in Urls
-    ]
-    if not version_verify(Version, id, DEVELOP_MODE):
-        report_existed(id, Version)
-    elif do_list(id, Version, "verify"):
-        report_existed(id, Version)
-    else:
-        Commands.append(
-            (
-                command_generator(Komac, id, list_to_str(Urls), Version, GH_TOKEN),
-                (id, Version, "write"),
-            )
-        )
-    del Urls, Version, id
-
-    # Notion.Notion
-    id = "Notion.Notion"
-    Urls: str = requests.get(
-        "https://www.notion.so/desktop/windows/download", verify=False
-    ).url
-    Version = clean_string(
-        Urls,
-        {"https://desktop-release.notion-static.com/Notion%20Setup%20": "", ".exe": ""},
-    )
-    if not version_verify(Version, id, DEVELOP_MODE):
-        report_existed(id, Version)
-    elif do_list(id, Version, "verify"):
-        report_existed(id, Version)
-    else:
-        Commands.append(
-            (
-                command_generator(Komac, id, Urls, Version, GH_TOKEN),
-                (id, Version, "write"),
-            )
-        )
-    del Urls, Version, id
-
-    # Cloudflare.cloudflared
-    id = "Cloudflare.cloudflared"
-    res = requests.get(
-        "https://api.github.com/repos/cloudflare/cloudflared/releases/latest",
-        verify=False,
-        headers=Headers[1],
-    ).json()
-    Version = res["tag_name"]
-    Urls = matchWithKeyWords(
-        [each["browser_download_url"] for each in res["assets"]],
-        requiredKeywords=[".msi"],
-    )
-    if not version_verify(Version, id, DEVELOP_MODE):
-        report_existed(id, Version)
-    elif do_list(id, Version, "verify"):
-        report_existed(id, Version)
-    else:
-        Commands.append(
-            (
-                command_generator(Komac, id, list_to_str(Urls), Version, GH_TOKEN),
-                (id, Version, "write"),
-            )
-        )
-    del res, Urls, Version, id
-
-    # xjasonlyu.tun2socks
-    id = "xjasonlyu.tun2socks"
-    res = requests.get(
-        "https://api.github.com/repos/xjasonlyu/tun2socks/releases/latest",
-        verify=False,
-        headers=Headers[1],
-    ).json()
-    Version = res["tag_name"]
-    Urls = matchWithKeyWords(
-        [each["browser_download_url"] for each in res["assets"]],
-        requiredKeywords=["windows"],
-        excludedKeywords=["-v3"],
-    )
-    if not version_verify(Version, id, DEVELOP_MODE):
-        report_existed(id, Version)
-    elif do_list(id, Version, "verify"):
-        report_existed(id, Version)
-    else:
-        Commands.append(
-            (
-                command_generator(Komac, id, list_to_str(Urls), Version, GH_TOKEN),
-                (id, Version, "write"),
-            )
-        )
-    del res, Urls, Version, id
 
     # sf-yuzifu.bcm_convertor
     id = "sf-yuzifu.bcm_convertor"
@@ -536,266 +354,6 @@ def main() -> list[tuple[str, tuple[str, str, str]]]:
             "bcm_convertor.yzf",
             "%E7%BC%96%E7%A8%8B%E7%8C%AB%E6%A0%BC%E5%BC%8F%E5%B7%A5%E5%8E%82",
         )
-    )
-    if not version_verify(str_pop(Version, 0), id, DEVELOP_MODE):
-        report_existed(id, Version)
-    elif do_list(id, Version, "verify"):
-        report_existed(id, Version)
-    else:
-        Commands.append(
-            (
-                command_generator(
-                    Komac, id, list_to_str(Urls), str_pop(Version, 0), GH_TOKEN
-                ),
-                (id, Version, "write"),
-            )
-        )
-    del res, Urls, Version, id
-
-    # Oven-sh.Bun
-    id = "Oven-sh.Bun"
-    res = requests.get(
-        "https://api.github.com/repos/oven-sh/bun/releases/latest",
-        verify=False,
-        headers=Headers[1],
-    ).json()
-    Version = res["tag_name"].replace("bun-v", "")
-    Urls = matchWithKeyWords(
-        [each["browser_download_url"] for each in res["assets"]],
-        requiredKeywords=["windows"],
-        excludedKeywords=["baseline", "profile"],
-    )
-    if not version_verify(Version, id, DEVELOP_MODE):
-        report_existed(id, Version)
-    elif do_list(id, Version, "verify"):
-        report_existed(id, Version)
-    else:
-        Commands.append(
-            (
-                command_generator(Komac, id, list_to_str(Urls), Version, GH_TOKEN),
-                (id, Version, "write"),
-            )
-        )
-    del res, Urls, Version, id
-
-    # Oven-sh.Bun.Baseline
-    id = "Oven-sh.Bun.Baseline"
-    res = requests.get(
-        "https://api.github.com/repos/oven-sh/bun/releases/latest",
-        verify=False,
-        headers=Headers[1],
-    ).json()
-    Version = res["tag_name"].replace("bun-v", "")
-    Urls = matchWithKeyWords(
-        [each["browser_download_url"] for each in res["assets"]],
-        requiredKeywords=["windows", "baseline"],
-        excludedKeywords=["profile"],
-    )
-    if not version_verify(Version, id, DEVELOP_MODE):
-        report_existed(id, Version)
-    elif do_list(id, Version, "verify"):
-        report_existed(id, Version)
-    else:
-        Commands.append(
-            (
-                command_generator(Komac, id, list_to_str(Urls), Version, GH_TOKEN),
-                (id, Version, "write"),
-            )
-        )
-    del res, Urls, Version, id
-
-    # Oven-sh.Bun.Profile
-    id = "Oven-sh.Bun.Profile"
-    res = requests.get(
-        "https://api.github.com/repos/oven-sh/bun/releases/latest",
-        verify=False,
-        headers=Headers[1],
-    ).json()
-    Version = res["tag_name"].replace("bun-v", "")
-    Urls = matchWithKeyWords(
-        [each["browser_download_url"] for each in res["assets"]],
-        requiredKeywords=["windows", "profile"],
-        excludedKeywords=["baseline"],
-    )
-    if not version_verify(Version, id, DEVELOP_MODE):
-        report_existed(id, Version)
-    elif do_list(id, Version, "verify"):
-        report_existed(id, Version)
-    else:
-        Commands.append(
-            (
-                command_generator(Komac, id, list_to_str(Urls), Version, GH_TOKEN),
-                (id, Version, "write"),
-            )
-        )
-    del res, Urls, Version, id
-
-    # Oven-sh.Bun.BaselineProfile
-    id = "Oven-sh.Bun.BaselineProfile"
-    res = requests.get(
-        "https://api.github.com/repos/oven-sh/bun/releases/latest",
-        verify=False,
-        headers=Headers[1],
-    ).json()
-    Version = res["tag_name"].replace("bun-v", "")
-    Urls = matchWithKeyWords(
-        [each["browser_download_url"] for each in res["assets"]],
-        requiredKeywords=["windows", "baseline", "profile"],
-    )
-    if not version_verify(Version, id, DEVELOP_MODE):
-        report_existed(id, Version)
-    elif do_list(id, Version, "verify"):
-        report_existed(id, Version)
-    else:
-        Commands.append(
-            (
-                command_generator(Komac, id, list_to_str(Urls), Version, GH_TOKEN),
-                (id, Version, "write"),
-            )
-        )
-    del res, Urls, Version, id
-
-    # SABnzbdTeam.SABnzbd
-    id = "SABnzbdTeam.SABnzbd"
-    res = requests.get(
-        "https://api.github.com/repos/sabnzbd/sabnzbd/releases/latest",
-        verify=False,
-        headers=Headers[1],
-    ).json()
-    Version = res["tag_name"]
-    Urls = matchWithKeyWords(
-        [each["browser_download_url"] for each in res["assets"]],
-        requiredKeywords=[".exe"],
-    )
-    if not version_verify(Version, id, DEVELOP_MODE):
-        report_existed(id, Version)
-    elif do_list(id, Version, "verify"):
-        report_existed(id, Version)
-    else:
-        Commands.append(
-            (
-                command_generator(Komac, id, list_to_str(Urls), Version, GH_TOKEN),
-                (id, Version, "write"),
-            )
-        )
-    del res, Urls, Version, id
-
-    # DOSBoxStaging.DOSBoxStaging
-    id = "DOSBoxStaging.DOSBoxStaging"
-    res = requests.get(
-        "https://api.github.com/repos/dosbox-staging/dosbox-staging/releases/latest",
-        verify=False,
-        headers=Headers[1],
-    ).json()
-    Version = res["tag_name"]
-    Urls = matchWithKeyWords(
-        [each["browser_download_url"] for each in res["assets"]],
-        requiredKeywords=["windows"],
-    )
-    if not version_verify(str_pop(Version, 0), id, DEVELOP_MODE):
-        report_existed(id, Version)
-    elif do_list(id, Version, "verify"):
-        report_existed(id, Version)
-    else:
-        Commands.append(
-            (
-                command_generator(
-                    Komac, id, list_to_str(Urls), str_pop(Version, 0), GH_TOKEN
-                ),
-                (id, Version, "write"),
-            )
-        )
-    del res, Urls, Version, id
-
-    # Audacity.Audacity
-    id = "Audacity.Audacity"
-    res = requests.get(
-        "https://api.github.com/repos/audacity/audacity/releases/latest",
-        verify=False,
-        headers=Headers[1],
-    ).json()
-    Version = res["tag_name"].replace("Audacity-", "")
-    Urls = matchWithKeyWords(
-        [each["browser_download_url"] for each in res["assets"]],
-        requiredKeywords=[".exe"],
-    )
-    if not version_verify(Version, id, DEVELOP_MODE):
-        report_existed(id, Version)
-    elif do_list(id, Version, "verify"):
-        report_existed(id, Version)
-    else:
-        Commands.append(
-            (
-                command_generator(Komac, id, list_to_str(Urls), Version, GH_TOKEN),
-                (id, Version, "write"),
-            )
-        )
-    del res, Urls, Version, id
-
-    # ReorProject.Reor
-    id = "ReorProject.Reor"
-    res = requests.get(
-        "https://api.github.com/repos/reorproject/reor/releases/latest",
-        verify=False,
-        headers=Headers[1],
-    ).json()
-    Version = res["tag_name"]
-    Urls = matchWithKeyWords(
-        [each["browser_download_url"] for each in res["assets"]],
-        requiredKeywords=[".exe"],
-    )
-    if not version_verify(str_pop(Version, 0), id, DEVELOP_MODE):
-        report_existed(id, Version)
-    elif do_list(id, Version, "verify"):
-        report_existed(id, Version)
-    else:
-        Commands.append(
-            (
-                command_generator(
-                    Komac, id, list_to_str(Urls), str_pop(Version, 0), GH_TOKEN
-                ),
-                (id, Version, "write"),
-            )
-        )
-    del res, Urls, Version, id
-
-    # GodotEngine.GodotEngine.Mono
-    id = "GodotEngine.GodotEngine.Mono"
-    res = requests.get(
-        "https://api.github.com/repos/godotengine/godot/releases/latest",
-        verify=False,
-        headers=Headers[0],
-    ).json()
-    Version = res["tag_name"].replace("-stable", "")
-    Urls = matchWithKeyWords(
-        [each["browser_download_url"] for each in res["assets"]],
-        requiredKeywords=["stable_mono_win"],
-    )
-    if not version_verify(Version, id, DEVELOP_MODE):
-        report_existed(id, Version)
-    elif do_list(id, Version, "verify"):
-        report_existed(id, Version)
-    else:
-        Commands.append(
-            (
-                command_generator(Komac, id, list_to_str(Urls), Version, GH_TOKEN),
-                (id, Version, "write"),
-            )
-        )
-    del res, Urls, Version, id
-
-    # Gleam.Gleam
-    id = "Gleam.Gleam"
-    res = requests.get(
-        "https://api.github.com/repos/gleam-lang/gleam/releases/latest",
-        verify=False,
-        headers=Headers[1],
-    ).json()
-    Version = res["tag_name"]
-    Urls = matchWithKeyWords(
-        [each["browser_download_url"] for each in res["assets"]],
-        requiredKeywords=["msvc"],
-        excludedKeywords=["sha"],
     )
     if not version_verify(str_pop(Version, 0), id, DEVELOP_MODE):
         report_existed(id, Version)
@@ -871,30 +429,6 @@ def main() -> list[tuple[str, tuple[str, str, str]]]:
     res = requests.get("https://website.upupoo.com/official/qr_code/official").json()
     Version = res["data"]["version_no"]
     Urls = [res["data"]["url"]]
-    if not version_verify(Version, id, DEVELOP_MODE):
-        report_existed(id, Version)
-    elif do_list(id, Version, "verify"):
-        report_existed(id, Version)
-    else:
-        Commands.append(
-            (
-                command_generator(Komac, id, list_to_str(Urls), Version, GH_TOKEN),
-                (id, Version, "write"),
-            )
-        )
-
-    # DuckStudio.FufuTools
-    id = "DuckStudio.FufuTools"
-    res = requests.get(
-        "https://api.github.com/repos/DuckDuckStudio/Fufu_Tools/releases/latest",
-        verify=False,
-        headers=Headers[1],
-    ).json()
-    Version = clean_string(res["tag_name"], {"芙芙工具箱": "", " ": "", "v": ""})
-    Urls = matchWithKeyWords(
-        [each["browser_download_url"] for each in res["assets"]],
-        requiredKeywords=[".exe"],
-    )
     if not version_verify(Version, id, DEVELOP_MODE):
         report_existed(id, Version)
     elif do_list(id, Version, "verify"):
@@ -1022,4 +556,10 @@ def main() -> list[tuple[str, tuple[str, str, str]]]:
 
 
 if __name__ == "__main__":
-    print("Executed Command: ", [each[0] for each in main()])
+    with open(
+        pathlib.Path(__file__).parents[0] / "config" / "packages.yaml",
+        "r",
+        encoding="utf-8",
+    ) as f:
+        response = main(yaml.safe_load(f))
+        print("Executed Command: ", [each[0] for each in response])

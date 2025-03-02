@@ -1,0 +1,238 @@
+- id: KuaiFan.DooTask
+  enable: true
+  type: Github
+  url: https://api.github.com/repos/kuaifan/dootask/releases/latest
+  match:
+    requiredKeywords:
+      - .exe
+    excludedKeywords:
+      - .blockmap
+- id: listen1.listen1
+  enable: true
+  type: Github
+  url: https://api.github.com/repos/listen1/listen1_desktop/releases/latest
+  match:
+    requiredKeywords:
+      - .exe
+    excludedKeywords:
+      - blockmap
+    necessaryKeywords:
+      - ia32
+      - x64
+      - arm64
+- id: PicGo.PicGo
+  enable: true
+  type: Github
+  url: https://api.github.com/repos/Molunerfinn/PicGo/releases/latest
+  match:
+    requiredKeywords:
+      - .exe
+    excludedKeywords:
+      - blockmap
+    necessaryKeywords:
+      - ia32
+      - x64
+- id: PicGo.PicGo.Beta
+  type: Github
+  enable: true
+  url: https://api.github.com/repos/Molunerfinn/PicGo/releases
+  skip:
+    whenEqualsToLatestVersion:
+      enable: true
+      url: https://api.github.com/repos/Molunerfinn/PicGo/releases/latest
+      path: tag_name
+  assets:
+    index: 0
+  match:
+    requiredKeywords:
+      - .exe
+    excludedKeywords:
+      - blockmap
+    necessaryKeywords:
+      - ia32
+      - x64
+- id: DenoLand.Deno
+  type: Github
+  enable: true
+  url: https://api.github.com/repos/denoland/deno/releases/latest
+  match:
+    requiredKeywords:
+      - msvc
+    excludedKeywords:
+      - denort
+      - sha256sum
+- id: GoLang.Go
+  enable: true
+  type: prefixWithFilename
+  url: https://go.dev/dl/?mode=json
+  pattern: https://go.dev/dl/$filename
+  version:
+    path: version
+    removeFirstCharacter: false
+    removeCharacters:
+      - go
+  assets:
+    index: 0
+    filepath: files
+    filename: filename
+  match:
+    requiredKeywords:
+      - msi
+- id: Genymobile.scrcpy
+  enable: true
+  type: Github
+  url: https://api.github.com/repos/Genymobile/scrcpy/releases/latest
+  match:
+    requiredKeywords:
+      - win
+- id: Cloudflare.cloudflared
+  enable: true
+  type: Github
+  url: https://api.github.com/repos/cloudflare/cloudflared/releases/latest
+  version:
+    removeFirstCharacter: false
+  match:
+    requiredKeywords:
+      - .msi
+- id: xjasonlyu.tun2socks
+  enable: true
+  type: Github
+  url: https://api.github.com/repos/xjasonlyu/tun2socks/releases/latest
+  version:
+    removeFirstCharacter: false
+  match:
+    requiredKeywords:
+      - windows
+    excludedKeywords:
+      - "-v3"
+- id: Oven-sh.Bun
+  enable: true
+  type: Github
+  url: https://api.github.com/repos/oven-sh/bun/releases/latest
+  version:
+    removeCharacters:
+      - bun-v
+    removeFirstCharacter: false
+  match:
+    requiredKeywords:
+      - windows
+    excludedKeywords:
+      - baseline
+      - profile
+- id: Oven-sh.Bun.Baseline
+  enable: true
+  type: Github
+  url: https://api.github.com/repos/oven-sh/bun/releases/latest
+  version:
+    removeCharacters:
+      - bun-v
+    removeFirstCharacter: false
+  match:
+    requiredKeywords:
+      - windows
+      - baseline
+    excludedKeywords:
+      - profile
+- id: Oven-sh.Bun.Profile
+  enable: true
+  type: Github
+  url: https://api.github.com/repos/oven-sh/bun/releases/latest
+  version:
+    removeCharacters:
+      - bun-v
+    removeFirstCharacter: false
+  match:
+    requiredKeywords:
+      - windows
+      - profile
+    excludedKeywords:
+      - baseline
+- id: Oven-sh.Bun.BaselineProfile
+  enable: true
+  type: Github
+  url: https://api.github.com/repos/oven-sh/bun/releases/latest
+  version:
+    removeCharacters:
+      - bun-v
+    removeFirstCharacter: false
+  match:
+    requiredKeywords:
+      - windows
+      - profile
+      - baseline
+- id: Gleam.Gleam
+  enable: true
+  type: Github
+  url: https://api.github.com/repos/gleam-lang/gleam/releases/latest
+  match:
+    requiredKeywords:
+      - msvc
+    excludedKeywords:
+      - sha
+- id: GodotEngine.GodotEngine.Mono
+  url: https://api.github.com/repos/godotengine/godot/releases/latest
+  type: Github
+  enable: true
+  version:
+    removeCharacters:
+      - -stable
+    removeFirstCharacter: false
+  match:
+    requiredKeywords:
+      - stable_mono_win
+- id: ReorProject.Reor
+  url: https://api.github.com/repos/reorproject/reor/releases/latest
+  type: Github
+  enable: true
+  match:
+    requiredKeywords:
+      - .exe
+- id: Audacity.Audacity
+  url: https://api.github.com/repos/audacity/audacity/releases/latest
+  version:
+    removeFirstCharacter: false
+    removeCharacters:
+      - Audacity-
+  type: Github
+  enable: true
+  match:
+    requiredKeywords:
+      - .exe
+- id: SABnzbdTeam.SABnzbd
+  url: https://api.github.com/repos/sabnzbd/sabnzbd/releases/latest
+  version:
+    removeFirstCharacter: false
+  type: Github
+  enable: true
+  match:
+    requiredKeywords:
+      - .exe
+- id: DOSBoxStaging.DOSBoxStaging
+  url: https://api.github.com/repos/dosbox-staging/dosbox-staging/releases/latest
+  type: Github
+  enable: true
+  match:
+    requiredKeywords:
+      - windows
+- id: Notion.Notion
+  url: https://www.notion.so/desktop/windows/download
+  type: redirectedFromUrl
+  enable: true
+  version:
+    removeFirstCharacter: false
+    removeCharacters:
+      - https://desktop-release.notion-static.com/Notion%20Setup%20
+      - .exe
+- id: DuckStudio.FufuTools
+  url: https://api.github.com/repos/DuckDuckStudio/Fufu_Tools/releases/latest
+  type: Github
+  enable: true
+  match:
+    requiredKeywords:
+      - .exe
+  version:
+    removeFirstCharacter: false
+    removeCharacters:
+      - 芙芙工具箱
+      - " "
+      - v
