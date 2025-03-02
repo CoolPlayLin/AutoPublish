@@ -113,11 +113,11 @@ def get_value_via_path(obj: dict, path: str):
 def clean_string(
     string: str, keywords: dict[str, str] = {}, removeWords: list[str] = []
 ) -> str:
-    _ = string
+    _string = string
     for k in keywords.keys():
-        _string = string.replace(k, keywords[k])
+        _string = _string.replace(k, keywords[k])
     for r in removeWords:
-        _string = string.replace(r, "")
+        _string = _string.replace(r, "")
     return _string
 
 
