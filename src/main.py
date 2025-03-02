@@ -129,19 +129,13 @@ def str_pop(string: str, index: int) -> str:
     return i
 
 
-def list_to_str(List: list) -> str:
-    new = str(List)
-    new = clean_string(
-        new,
-        {
-            "[": "",
-            "]": "",
-            " ": "",
-            "'": "",
-            ",": " ",
-        },
-    )
-    return new
+def list_to_str(obj):
+    _obj = []
+    for index, each in enumerate(obj):
+        _obj.append(each)
+        if index + 1 != len(obj):
+            _obj.append(" ")
+    return str("").join(_obj)
 
 
 def version_verify(version: str, id: str, DEVELOP_MODE: bool = False) -> bool:
@@ -206,7 +200,7 @@ def get_assets(obj: dict, config: dict):
 
 
 def get_version(
-    obj: dict, config: dict["removeFirstCharacter":bool, "removeCharacters":str]
+    obj: str, config: dict["removeFirstCharacter":bool, "removeCharacters":str]
 ) -> str:
     _obj = obj
     if config.get("removeFirstCharacter") != False:
@@ -216,7 +210,7 @@ def get_version(
     return _obj
 
 
-def main(packages) -> list[tuple[str, tuple[str, str, str]]]:
+def main(packages: list[dict]) -> list[tuple[str, tuple[str, str, str]]]:
     Commands: list[tuple[str, tuple[str, str, str]]] = []
     Komac = prepare_komac(pathlib.Path(__file__).parents[0], DEVELOP_MODE)
     Headers = [
@@ -250,6 +244,9 @@ def main(packages) -> list[tuple[str, tuple[str, str, str]]]:
         if not package["enable"]:
             print(f"{package['id']} is disabled")
             continue
+        Urls = []
+        OriginalVersion = ""
+        Version = ""
         if package["type"] == "Github":
             OriginalResponse = requests.get(
                 package["url"],
@@ -283,23 +280,6 @@ def main(packages) -> list[tuple[str, tuple[str, str, str]]]:
                 excludedKeywords=package["match"].get("excludedKeywords") or [],
                 necessaryKeywords=package["match"].get("necessaryKeywords") or [],
             )
-            if not version_verify(Version, package["id"], DEVELOP_MODE):
-                report_existed(package["id"], OriginalVersion)
-            elif do_list(package["id"], OriginalVersion, "verify"):
-                report_existed(package["id"], OriginalVersion)
-            else:
-                Commands.append(
-                    (
-                        command_generator(
-                            Komac,
-                            package["id"],
-                            list_to_str(Urls),
-                            Version,
-                            GH_TOKEN,
-                        ),
-                        (package["id"], OriginalVersion, "write"),
-                    )
-                )
         elif package["type"] == "prefixWithFilename":
             OriginalResponse = requests.get(
                 url=package["url"],
@@ -324,7 +304,25 @@ def main(packages) -> list[tuple[str, tuple[str, str, str]]]:
                 OriginalVersion,
                 package.get("version") or {},
             )
-            print(
+        elif package["type"] == "redirectedFromUrl":
+            OriginalResponse = requests.get(
+                url=package["url"], verify=False, headers=Headers[0]
+            )
+            res = OriginalResponse.url
+            Urls = [res]
+            OriginalVersion = get_version(
+                res, package.get("version") or {"removeFirstCharacter": False}
+            )
+            Version = OriginalVersion
+        else:
+            print(f"""{package['type']} hasn't been supported yet""")
+            continue
+        if not version_verify(Version, package["id"], DEVELOP_MODE):
+            report_existed(package["id"], OriginalVersion)
+        elif do_list(package["id"], OriginalVersion, "verify"):
+            report_existed(package["id"], OriginalVersion)
+        else:
+            Commands.append(
                 (
                     command_generator(
                         Komac,
@@ -336,76 +334,6 @@ def main(packages) -> list[tuple[str, tuple[str, str, str]]]:
                     (package["id"], OriginalVersion, "write"),
                 )
             )
-            if not version_verify(Version, package["id"], DEVELOP_MODE):
-                report_existed(package["id"], OriginalVersion)
-            elif do_list(package["id"], OriginalVersion, "verify"):
-                report_existed(package["id"], OriginalVersion)
-            else:
-                Commands.append(
-                    (
-                        command_generator(
-                            Komac,
-                            package["id"],
-                            list_to_str(Urls),
-                            Version,
-                            GH_TOKEN,
-                        ),
-                        (package["id"], OriginalVersion, "write"),
-                    )
-                )
-        else:
-            print(f"""{package['type']} hasn't been supported yet""")
-
-    # OpenJS.NodeJS
-    id = "OpenJS.NodeJS"
-    Urls: list[str] = [
-        each["href"]
-        for each in bs4.BeautifulSoup(
-            requests.get("https://nodejs.org/dist/latest/", verify=False).text,
-            "html.parser",
-        ).pre.find_all("a")
-        if "msi" in each["href"]
-    ]
-    Version = clean_string(
-        Urls[0], {"node-v": "", "-": "", ".msi": "", "arm64": "", "x64": "", "x86": ""}
-    )
-    Urls = [
-        "https://nodejs.org/dist/{}/{}".format("v" + Version, each) for each in Urls
-    ]
-    if not version_verify(Version, id, DEVELOP_MODE):
-        report_existed(id, Version)
-    elif do_list(id, Version, "verify"):
-        report_existed(id, Version)
-    else:
-        Commands.append(
-            (
-                command_generator(Komac, id, list_to_str(Urls), Version, GH_TOKEN),
-                (id, Version, "write"),
-            )
-        )
-    del Urls, Version, id
-
-    # Notion.Notion
-    id = "Notion.Notion"
-    Urls: str = requests.get(
-        "https://www.notion.so/desktop/windows/download", verify=False
-    ).url
-    Version = clean_string(
-        Urls,
-        {"https://desktop-release.notion-static.com/Notion%20Setup%20": "", ".exe": ""},
-    )
-    if not version_verify(Version, id, DEVELOP_MODE):
-        report_existed(id, Version)
-    elif do_list(id, Version, "verify"):
-        report_existed(id, Version)
-    else:
-        Commands.append(
-            (
-                command_generator(Komac, id, Urls, Version, GH_TOKEN),
-                (id, Version, "write"),
-            )
-        )
-    del Urls, Version, id
 
     # sf-yuzifu.bcm_convertor
     id = "sf-yuzifu.bcm_convertor"

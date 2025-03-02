@@ -213,3 +213,12 @@
   match:
     requiredKeywords:
       - windows
+- id: Notion.Notion
+  url: https://www.notion.so/desktop/windows/download
+  type: redirectedFromUrl
+  enable: true
+  version:
+    removeFirstCharacter: false
+    removeCharacters:
+      - https://desktop-release.notion-static.com/Notion%20Setup%20
+      - .exe
