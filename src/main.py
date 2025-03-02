@@ -441,30 +441,6 @@ def main(packages: list[dict]) -> list[tuple[str, tuple[str, str, str]]]:
             )
         )
 
-    # DuckStudio.FufuTools
-    id = "DuckStudio.FufuTools"
-    res = requests.get(
-        "",
-        verify=False,
-        headers=Headers[1],
-    ).json()
-    Version = clean_string(res["tag_name"], {"芙芙工具箱": "", " ": "", "v": ""})
-    Urls = matchWithKeyWords(
-        [each["browser_download_url"] for each in res["assets"]],
-        requiredKeywords=[".exe"],
-    )
-    if not version_verify(Version, id, DEVELOP_MODE):
-        report_existed(id, Version)
-    elif do_list(id, Version, "verify"):
-        report_existed(id, Version)
-    else:
-        Commands.append(
-            (
-                command_generator(Komac, id, list_to_str(Urls), Version, GH_TOKEN),
-                (id, Version, "write"),
-            )
-        )
-
     # Check for missing versions
     if time.strftime("%d-%H") in ("1-12", "10-12", "20-12", "30-12"):
         try:
