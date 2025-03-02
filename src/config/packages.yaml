@@ -223,3 +223,16 @@
     removeCharacters:
       - https://desktop-release.notion-static.com/Notion%20Setup%20
       - .exe
+- id: DuckStudio.FufuTools
+  url: https://api.github.com/repos/DuckDuckStudio/Fufu_Tools/releases/latest
+  type: Github
+  enable: true
+  match:
+    requiredKeywords:
+      - .exe
+  version:
+    removeFirstCharacter: false
+    removeCharacters:
+      - 芙芙工具箱
+      - " "
+      - v

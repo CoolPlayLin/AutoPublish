@@ -444,7 +444,7 @@ def main(packages: list[dict]) -> list[tuple[str, tuple[str, str, str]]]:
     # DuckStudio.FufuTools
     id = "DuckStudio.FufuTools"
     res = requests.get(
-        "https://api.github.com/repos/DuckDuckStudio/Fufu_Tools/releases/latest",
+        "",
         verify=False,
         headers=Headers[1],
     ).json()
@@ -581,7 +581,7 @@ def main(packages: list[dict]) -> list[tuple[str, tuple[str, str, str]]]:
 
 if __name__ == "__main__":
     with open(
-        pathlib.Path(__file__).parents[0] / "config" / "package.yaml",
+        pathlib.Path(__file__).parents[0] / "config" / "packages.yaml",
         "r",
         encoding="utf-8",
     ) as f:
