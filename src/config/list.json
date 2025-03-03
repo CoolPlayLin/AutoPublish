@@ -682,7 +682,7 @@
     "v0.82.0-rc1",
     "v0.82.0"
   ],
-  "GodotEngine.GodotEngine.Mono": ["4.2.2", "4.3"],
+  "GodotEngine.GodotEngine.Mono": ["4.2.2", "4.3", "4.4-stable"],
   "ReorProject.Reor": [
     "v0.2.8",
     "v0.2.9",
