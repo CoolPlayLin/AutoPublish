@@ -72,7 +72,7 @@ DEVELOP_MODE = not bool(GH_TOKEN)
 
 
 def report_existed(id: str, Version: str) -> None:
-    print(f"{id}: {Version} has already existed, skip publishing")
+    print(f"{id}: {Version} has already existed, package to skip publishing")
 
 
 def prepare_komac(path: str, DEVELOP_MODE: bool = False) -> pathlib.Path:
