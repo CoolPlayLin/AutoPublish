@@ -1758,5 +1758,10 @@
     "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update OpenJS.NodeJS.LTS --urls https://nodejs.org/dist/v18.20.8/node-v18.20.8-x64.msi https://nodejs.org/dist/v18.20.8/node-v18.20.8-x86.msi --version 18.20.8 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
     "returnedCode": 0,
     "time": "2025-03-30 12:36:12"
+  },
+  {
+    "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update SABnzbdTeam.SABnzbd --urls https://github.com/sabnzbd/sabnzbd/releases/download/4.5.0/SABnzbd-4.5.0-win-setup.exe --version 4.5.0 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
+    "returnedCode": 0,
+    "time": "2025-03-30 16:22:35"
   }
 ]
