@@ -1793,5 +1793,10 @@
     "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update Cloudflare.cloudflared --urls https://github.com/cloudflare/cloudflared/releases/download/2025.4.0/cloudflared-windows-386.msi https://github.com/cloudflare/cloudflared/releases/download/2025.4.0/cloudflared-windows-amd64.msi --version 2025.4.0 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
     "returnedCode": 0,
     "time": "2025-04-02 16:26:35"
+  },
+  {
+    "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update DOSBoxStaging.DOSBoxStaging --urls https://github.com/dosbox-staging/dosbox-staging/releases/download/v0.82.1/dosbox-staging-windows-x64-v0.82.1-setup.exe https://github.com/dosbox-staging/dosbox-staging/releases/download/v0.82.1/dosbox-staging-windows-x64-v0.82.1.zip --version 0.82.1 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
+    "returnedCode": 0,
+    "time": "2025-04-04 01:27:54"
   }
 ]
