@@ -1878,5 +1878,15 @@
     "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update KuaiFan.DooTask --urls https://github.com/kuaifan/dootask/releases/download/v0.46.16/DooTask-v0.46.16-win-arm64.exe https://github.com/kuaifan/dootask/releases/download/v0.46.16/DooTask-v0.46.16-win-x64.exe https://github.com/kuaifan/dootask/releases/download/v0.46.16/DooTask-v0.46.16-win.exe --version 0.46.16 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
     "returnedCode": 1,
     "time": "2025-04-14 16:25:44"
+  },
+  {
+    "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update KuaiFan.DooTask --urls https://github.com/kuaifan/dootask/releases/download/v0.46.16/DooTask-v0.46.16-win-arm64.exe https://github.com/kuaifan/dootask/releases/download/v0.46.16/DooTask-v0.46.16-win-x64.exe https://github.com/kuaifan/dootask/releases/download/v0.46.16/DooTask-v0.46.16-win.exe --version 0.46.16 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
+    "returnedCode": 0,
+    "time": "2025-04-14 17:18:04"
+  },
+  {
+    "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update Gleam.Gleam --urls https://github.com/gleam-lang/gleam/releases/download/v1.10.0/gleam-v1.10.0-x86_64-pc-windows-msvc.zip https://github.com/gleam-lang/gleam/releases/download/v1.10.0/gleam-v1.10.0-x86_64-pc-windows-msvc.zip.sbom.cyclonedx.json https://github.com/gleam-lang/gleam/releases/download/v1.10.0/gleam-v1.10.0-x86_64-pc-windows-msvc.zip.sbom.spdx.json https://github.com/gleam-lang/gleam/releases/download/v1.10.0/gleam-v1.10.0-x86_64-pc-windows-msvc.zip.sigstore --version 1.10.0 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
+    "returnedCode": 0,
+    "time": "2025-04-14 17:18:04"
   }
 ]
