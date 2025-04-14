@@ -1868,5 +1868,10 @@
     "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update ReorProject.Reor --urls https://github.com/reorproject/reor/releases/download/v-0.2.32/Reor_0.2.31.exe --version -0.2.32 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
     "returnedCode": 2,
     "time": "2025-04-13 22:18:18"
+  },
+  {
+    "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update Gleam.Gleam --urls https://github.com/gleam-lang/gleam/releases/download/v1.10.0/gleam-v1.10.0-x86_64-pc-windows-msvc.zip https://github.com/gleam-lang/gleam/releases/download/v1.10.0/gleam-v1.10.0-x86_64-pc-windows-msvc.zip.sbom.cyclonedx.json https://github.com/gleam-lang/gleam/releases/download/v1.10.0/gleam-v1.10.0-x86_64-pc-windows-msvc.zip.sbom.spdx.json https://github.com/gleam-lang/gleam/releases/download/v1.10.0/gleam-v1.10.0-x86_64-pc-windows-msvc.zip.sigstore --version 1.10.0 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
+    "returnedCode": 1,
+    "time": "2025-04-14 14:20:16"
   }
 ]
