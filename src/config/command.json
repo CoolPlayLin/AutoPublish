@@ -2663,5 +2663,10 @@
     "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update Cloudflare.cloudflared --urls https://github.com/cloudflare/cloudflared/releases/download/2025.6.0/cloudflared-windows-386.msi https://github.com/cloudflare/cloudflared/releases/download/2025.6.0/cloudflared-windows-amd64.msi --version 2025.6.0 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
     "returnedCode": 0,
     "time": "2025-06-11 13:34:52"
+  },
+  {
+    "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update Genymobile.scrcpy --urls https://github.com/Genymobile/scrcpy/releases/download/v3.3/scrcpy-win32-v3.3.zip https://github.com/Genymobile/scrcpy/releases/download/v3.3/scrcpy-win64-v3.3.zip --version 3.3 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
+    "returnedCode": 0,
+    "time": "2025-06-11 20:22:41"
   }
 ]
