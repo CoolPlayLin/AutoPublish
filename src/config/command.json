@@ -2708,5 +2708,10 @@
     "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update Cloudflare.cloudflared --urls https://github.com/cloudflare/cloudflared/releases/download/2025.6.1/cloudflared-windows-386.msi https://github.com/cloudflare/cloudflared/releases/download/2025.6.1/cloudflared-windows-amd64.msi --version 2025.6.1 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
     "returnedCode": 0,
     "time": "2025-06-17 13:33:51"
+  },
+  {
+    "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update listen1.listen1 --urls https://github.com/listen1/listen1_desktop/releases/download/v2.33.0/listen1_2.33.0_win_arm64.exe https://github.com/listen1/listen1_desktop/releases/download/v2.33.0/listen1_2.33.0_win_ia32.exe https://github.com/listen1/listen1_desktop/releases/download/v2.33.0/listen1_2.33.0_win_x64.exe --version 2.33.0 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
+    "returnedCode": 0,
+    "time": "2025-06-17 14:21:40"
   }
 ]
