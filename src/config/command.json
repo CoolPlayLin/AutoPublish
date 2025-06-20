@@ -2713,5 +2713,10 @@
     "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update listen1.listen1 --urls https://github.com/listen1/listen1_desktop/releases/download/v2.33.0/listen1_2.33.0_win_arm64.exe https://github.com/listen1/listen1_desktop/releases/download/v2.33.0/listen1_2.33.0_win_ia32.exe https://github.com/listen1/listen1_desktop/releases/download/v2.33.0/listen1_2.33.0_win_x64.exe --version 2.33.0 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
     "returnedCode": 0,
     "time": "2025-06-17 14:21:40"
+  },
+  {
+    "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update Genymobile.scrcpy --urls https://github.com/Genymobile/scrcpy/releases/download/v3.3.1/scrcpy-win32-v3.3.1.zip https://github.com/Genymobile/scrcpy/releases/download/v3.3.1/scrcpy-win64-v3.3.1.zip --version 3.3.1 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
+    "returnedCode": 0,
+    "time": "2025-06-20 18:29:36"
   }
 ]
