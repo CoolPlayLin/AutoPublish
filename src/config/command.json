@@ -2718,5 +2718,25 @@
     "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update Genymobile.scrcpy --urls https://github.com/Genymobile/scrcpy/releases/download/v3.3.1/scrcpy-win32-v3.3.1.zip https://github.com/Genymobile/scrcpy/releases/download/v3.3.1/scrcpy-win64-v3.3.1.zip --version 3.3.1 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
     "returnedCode": 0,
     "time": "2025-06-20 18:29:36"
+  },
+  {
+    "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update Oven-sh.Bun --urls https://github.com/oven-sh/bun/releases/download/bun-v1.2.17/bun-windows-x64.zip --version 1.2.17 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
+    "returnedCode": 0,
+    "time": "2025-06-21 08:25:40"
+  },
+  {
+    "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update Oven-sh.Bun.Baseline --urls https://github.com/oven-sh/bun/releases/download/bun-v1.2.17/bun-windows-x64-baseline.zip --version 1.2.17 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
+    "returnedCode": 0,
+    "time": "2025-06-21 08:25:47"
+  },
+  {
+    "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update Oven-sh.Bun.Profile --urls https://github.com/oven-sh/bun/releases/download/bun-v1.2.17/bun-windows-x64-profile.zip --version 1.2.17 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
+    "returnedCode": 0,
+    "time": "2025-06-21 08:25:58"
+  },
+  {
+    "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update Oven-sh.Bun.BaselineProfile --urls https://github.com/oven-sh/bun/releases/download/bun-v1.2.17/bun-windows-x64-baseline-profile.zip --version 1.2.17 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
+    "returnedCode": 0,
+    "time": "2025-06-21 08:26:08"
   }
 ]
