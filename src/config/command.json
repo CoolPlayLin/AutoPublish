@@ -2888,5 +2888,15 @@
     "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update Oven-sh.Bun.BaselineProfile --urls https://github.com/oven-sh/bun/releases/download/bun-v1.2.19/bun-windows-x64-baseline-profile.zip --version 1.2.19 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
     "returnedCode": 0,
     "time": "2025-07-19 12:41:42"
+  },
+  {
+    "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update DenoLand.Deno --urls https://github.com/denoland/deno/releases/download/v2.2.14/deno-x86_64-pc-windows-msvc.zip https://github.com/denoland/deno/releases/download/v2.2.14/deno-x86_64-pc-windows-msvc.zip.sha256sum --version 2.2.14 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
+    "returnedCode": 1,
+    "time": "2025-07-20 12:42:19"
+  },
+  {
+    "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update OpenJS.NodeJS.LTS --urls https://nodejs.org/dist/v20.19.4/node-v20.19.4-x64.msi https://nodejs.org/dist/v20.19.4/node-v20.19.4-x86.msi --version 20.19.4 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
+    "returnedCode": 0,
+    "time": "2025-07-20 12:42:36"
   }
 ]
