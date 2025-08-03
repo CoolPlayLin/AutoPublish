@@ -37,7 +37,7 @@ komac = Komac(pathlib.Path(__file__).parents[0])
 def command_generator(
     token: str, id: str, version: str, reason: str, komac_path: pathlib.Path
 ) -> bool:
-    return f"{komac_path} remove --identifier {id} --version {version} --reason '{reason}' --submit --token {token}"
+    return f"{komac_path} remove --version {version} {id} --reason '{reason}' --submit --token {token}"
 
 
 def scan(_yaml: dict, token: str):
