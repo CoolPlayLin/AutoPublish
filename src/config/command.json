@@ -3048,5 +3048,10 @@
     "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update Oven-sh.Bun.BaselineProfile --urls https://github.com/oven-sh/bun/releases/download/bun-v1.2.21/bun-windows-x64-baseline-profile.zip --version 1.2.21 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
     "returnedCode": 1,
     "time": "2025-08-25 12:43:04"
+  },
+  {
+    "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update SABnzbdTeam.SABnzbd --urls https://github.com/sabnzbd/sabnzbd/releases/download/4.5.3/SABnzbd-4.5.3-win-setup.exe --version 4.5.3 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
+    "returnedCode": 0,
+    "time": "2025-08-25 15:22:32"
   }
 ]
