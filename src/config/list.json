@@ -685,7 +685,8 @@
     "bun-v1.2.16",
     "bun-v1.2.17",
     "bun-v1.2.18",
-    "bun-v1.2.19"
+    "bun-v1.2.19",
+    "bun-v1.2.21"
   ],
   "Oven-sh.Bun.BaselineProfile": [
     "1.1.3",
