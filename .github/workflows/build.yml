@@ -23,7 +23,7 @@ jobs:
         with:
           token: ${{ secrets.TOKEN }}
       - name: Setup Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: 3.11
       - name: Setup Node.JS
@@ -72,7 +72,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4.2.2
       - name: Setup Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: '3.11.0'
       - name: Setup Env
