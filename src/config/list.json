@@ -158,7 +158,8 @@
     "v2.7",
     "v3.2",
     "v3.3",
-    "v3.3.1"
+    "v3.3.1",
+    "v3.3.2"
   ],
   "Fndroid.ClashForWindows": ["0.20.29"],
   "DenoLand.Deno": [
