@@ -3993,5 +3993,10 @@
     "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update KuaiFan.DooTask --urls https://github.com/kuaifan/dootask/releases/download/v1.2.75/DooTask-v1.2.75-win-arm64.exe https://github.com/kuaifan/dootask/releases/download/v1.2.75/DooTask-v1.2.75-win-x64.exe https://github.com/kuaifan/dootask/releases/download/v1.2.75/DooTask-v1.2.75-win.exe --version 1.2.75 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
     "returnedCode": 0,
     "time": "2025-09-23 10:21:13"
+  },
+  {
+    "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update NASM.NASM --urls https://www.nasm.us/pub/nasm/releasebuilds//win64/nasm--installer-x64.exe https://www.nasm.us/pub/nasm/releasebuilds//win32/nasm--installer-x86.exe --version  --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
+    "returnedCode": 2,
+    "time": "2025-09-23 16:25:33"
   }
 ]
