@@ -4178,5 +4178,10 @@
     "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update SABnzbdTeam.SABnzbd --urls https://github.com/sabnzbd/sabnzbd/releases/download/4.5.4/SABnzbd-4.5.4-win-setup.exe --version 4.5.4 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
     "returnedCode": 0,
     "time": "2025-10-22 22:16:22"
+  },
+  {
+    "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update GodotEngine.GodotEngine.Mono --urls https://github.com/godotengine/godot/releases/download/3.6.2-stable/Godot_v3.6.2-stable_mono_win32.zip https://github.com/godotengine/godot/releases/download/3.6.2-stable/Godot_v3.6.2-stable_mono_win64.zip --version 3.6.2 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
+    "returnedCode": 0,
+    "time": "2025-10-23 11:19:05"
   }
 ]
