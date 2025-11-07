@@ -4248,5 +4248,10 @@
     "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update Cloudflare.cloudflared --urls https://github.com/cloudflare/cloudflared/releases/download/2025.11.0/cloudflared-windows-386.msi https://github.com/cloudflare/cloudflared/releases/download/2025.11.0/cloudflared-windows-amd64.msi --version 2025.11.0 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
     "returnedCode": 0,
     "time": "2025-11-07 10:22:54"
+  },
+  {
+    "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update Cloudflare.cloudflared --urls https://github.com/cloudflare/cloudflared/releases/download/2025.11.1/cloudflared-windows-386.msi https://github.com/cloudflare/cloudflared/releases/download/2025.11.1/cloudflared-windows-amd64.msi --version 2025.11.1 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
+    "returnedCode": 0,
+    "time": "2025-11-07 17:19:09"
   }
 ]
