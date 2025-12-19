@@ -4443,5 +4443,10 @@
     "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update Genymobile.scrcpy --urls https://github.com/Genymobile/scrcpy/releases/download/v3.3.4/scrcpy-win32-v3.3.4.zip https://github.com/Genymobile/scrcpy/releases/download/v3.3.4/scrcpy-win64-v3.3.4.zip --version 3.3.4 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
     "returnedCode": 0,
     "time": "2025-12-17 20:27:24"
+  },
+  {
+    "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update KuaiFan.DooTask --urls https://github.com/kuaifan/dootask/releases/download/v1.4.99/DooTask-v1.4.99-win-arm64.exe https://github.com/kuaifan/dootask/releases/download/v1.4.99/DooTask-v1.4.99-win-x64.exe https://github.com/kuaifan/dootask/releases/download/v1.4.99/DooTask-v1.4.99-win.exe --version 1.4.99 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
+    "returnedCode": 0,
+    "time": "2025-12-19 01:47:55"
   }
 ]
