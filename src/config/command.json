@@ -4563,5 +4563,10 @@
     "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update GoLang.Go --urls https://go.dev/dl/go1.25.6.windows-386.msi https://go.dev/dl/go1.25.6.windows-amd64.msi https://go.dev/dl/go1.25.6.windows-arm64.msi --version 1.25.6 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
     "returnedCode": 0,
     "time": "2026-01-15 19:26:11"
+  },
+  {
+    "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update KuaiFan.DooTask --urls https://github.com/kuaifan/dootask/releases/download/v1.6.27/DooTask-v1.6.27-win-arm64.exe https://github.com/kuaifan/dootask/releases/download/v1.6.27/DooTask-v1.6.27-win-x64.exe https://github.com/kuaifan/dootask/releases/download/v1.6.27/DooTask-v1.6.27-win.exe --version 1.6.27 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
+    "returnedCode": 0,
+    "time": "2026-01-15 20:28:35"
   }
 ]
