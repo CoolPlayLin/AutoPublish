@@ -4768,5 +4768,25 @@
     "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update Cloudflare.cloudflared --urls https://github.com/cloudflare/cloudflared/releases/download/2026.2.0/cloudflared-windows-386.msi https://github.com/cloudflare/cloudflared/releases/download/2026.2.0/cloudflared-windows-amd64.msi --version 2026.2.0 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
     "returnedCode": 0,
     "time": "2026-02-06 21:32:32"
+  },
+  {
+    "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update Oven-sh.Bun --urls https://github.com/oven-sh/bun/releases/download/bun-v1.3.9/bun-windows-x64.zip --version 1.3.9 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
+    "returnedCode": 1,
+    "time": "2026-02-08 09:33:21"
+  },
+  {
+    "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update Oven-sh.Bun.Baseline --urls https://github.com/oven-sh/bun/releases/download/bun-v1.3.9/bun-windows-x64-baseline.zip --version 1.3.9 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
+    "returnedCode": 1,
+    "time": "2026-02-08 09:33:24"
+  },
+  {
+    "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update Oven-sh.Bun.Profile --urls https://github.com/oven-sh/bun/releases/download/bun-v1.3.9/bun-windows-x64-profile.zip --version 1.3.9 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
+    "returnedCode": 1,
+    "time": "2026-02-08 09:33:28"
+  },
+  {
+    "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update Oven-sh.Bun.BaselineProfile --urls https://github.com/oven-sh/bun/releases/download/bun-v1.3.9/bun-windows-x64-baseline-profile.zip --version 1.3.9 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
+    "returnedCode": 1,
+    "time": "2026-02-08 09:33:32"
   }
 ]
