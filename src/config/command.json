@@ -4798,5 +4798,10 @@
     "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update PicGo.PicGo --urls https://github.com/Molunerfinn/PicGo/releases/download/v2.5.1/PicGo-2.5.1-ia32.exe https://github.com/Molunerfinn/PicGo/releases/download/v2.5.1/PicGo-2.5.1-x64.exe --version 2.5.1 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
     "returnedCode": 1,
     "time": "2026-02-10 08:58:59"
+  },
+  {
+    "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update PicGo.PicGo --urls https://github.com/Molunerfinn/PicGo/releases/download/v2.5.2/PicGo-2.5.2-ia32.exe https://github.com/Molunerfinn/PicGo/releases/download/v2.5.2/PicGo-2.5.2-x64.exe --version 2.5.2 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
+    "returnedCode": 1,
+    "time": "2026-02-10 14:59:59"
   }
 ]
