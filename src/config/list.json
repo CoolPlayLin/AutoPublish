@@ -921,7 +921,8 @@
     "bun-v1.3.3",
     "bun-v1.3.4",
     "bun-v1.3.5",
-    "bun-v1.3.8"
+    "bun-v1.3.8",
+    "bun-v1.3.9"
   ],
   "Oven-sh.Bun.Baseline": [
     "1.1.3",
