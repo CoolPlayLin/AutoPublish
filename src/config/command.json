@@ -5068,5 +5068,10 @@
     "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update Notion.Notion --urls https://desktop-release.notion-static.com/Notion%20Setup%207.9.1.exe --version 7.9.1 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
     "returnedCode": 0,
     "time": "2026-03-31 20:44:51"
+  },
+  {
+    "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update DenoLand.Deno --urls https://github.com/denoland/deno/releases/download/v2.7.11/deno-aarch64-pc-windows-msvc.zip https://github.com/denoland/deno/releases/download/v2.7.11/deno-x86_64-pc-windows-msvc.zip --version 2.7.11 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
+    "returnedCode": 0,
+    "time": "2026-04-01 17:54:13"
   }
 ]
