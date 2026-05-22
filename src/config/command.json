@@ -5408,5 +5408,15 @@
     "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update Notion.Notion --urls https://desktop-release.notion-static.com/Notion%20Setup%207.18.0.exe --version 7.18.0 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
     "returnedCode": 0,
     "time": "2026-05-21 03:53:08"
+  },
+  {
+    "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update KuaiFan.DooTask --urls https://github.com/kuaifan/dootask/releases/download/v1.7.55/DooTask-v1.7.55-win-arm64.exe https://github.com/kuaifan/dootask/releases/download/v1.7.55/DooTask-v1.7.55-win-x64.exe https://github.com/kuaifan/dootask/releases/download/v1.7.55/DooTask-v1.7.55-win.exe --version 1.7.55 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
+    "returnedCode": 0,
+    "time": "2026-05-22 12:22:08"
+  },
+  {
+    "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update DenoLand.Deno --urls https://github.com/denoland/deno/releases/download/v2.8.0/deno-aarch64-pc-windows-msvc.from-2.7.14.bsdiff https://github.com/denoland/deno/releases/download/v2.8.0/deno-aarch64-pc-windows-msvc.zip https://github.com/denoland/deno/releases/download/v2.8.0/deno-x86_64-pc-windows-msvc.from-2.7.14.bsdiff https://github.com/denoland/deno/releases/download/v2.8.0/deno-x86_64-pc-windows-msvc.zip --version 2.8.0 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
+    "returnedCode": 0,
+    "time": "2026-05-22 12:22:09"
   }
 ]
