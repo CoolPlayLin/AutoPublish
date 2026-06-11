@@ -1075,7 +1075,8 @@
     "4.5.3",
     "4.5.4",
     "4.5.5",
-    "5.0.3"
+    "5.0.3",
+    "5.0.4"
   ],
   "DOSBoxStaging.DOSBoxStaging": [
     "v0.81.0",
@@ -1164,7 +1165,8 @@
     "Audacity-3.7.3",
     "Audacity-3.7.5",
     "Audacity-3.7.6",
-    "Audacity-3.7.7"
+    "Audacity-3.7.7",
+    "Audacity-3.7.8"
   ],
   "DuckStudio.FufuTools": [
     "1.3.3",
