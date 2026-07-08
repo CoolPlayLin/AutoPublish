@@ -5683,5 +5683,10 @@
     "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update Cloudflare.cloudflared --urls https://github.com/cloudflare/cloudflared/releases/download/2026.7.0/cloudflared-windows-386.msi https://github.com/cloudflare/cloudflared/releases/download/2026.7.0/cloudflared-windows-amd64.msi --version 2026.7.0 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
     "returnedCode": 0,
     "time": "2026-07-08 14:10:49"
+  },
+  {
+    "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update DenoLand.Deno --urls https://github.com/denoland/deno/releases/download/v2.9.2/deno-aarch64-pc-windows-msvc.from-2.9.1.bsdiff https://github.com/denoland/deno/releases/download/v2.9.2/deno-aarch64-pc-windows-msvc.zip https://github.com/denoland/deno/releases/download/v2.9.2/deno-x86_64-pc-windows-msvc.zip --version 2.9.2 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
+    "returnedCode": 0,
+    "time": "2026-07-08 16:40:17"
   }
 ]
