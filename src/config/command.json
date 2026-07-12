@@ -5698,5 +5698,15 @@
     "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update Cloudflare.cloudflared --urls https://github.com/cloudflare/cloudflared/releases/download/2026.7.1/cloudflared-windows-386.msi https://github.com/cloudflare/cloudflared/releases/download/2026.7.1/cloudflared-windows-amd64.msi --version 2026.7.1 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
     "returnedCode": 0,
     "time": "2026-07-09 15:56:19"
+  },
+  {
+    "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update PicGo.PicGo --urls https://github.com/Molunerfinn/PicGo/releases/download/v3.0.1/PicGo-3.0.1-ia32.exe https://github.com/Molunerfinn/PicGo/releases/download/v3.0.1/PicGo-3.0.1-x64.exe --version 3.0.1 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
+    "returnedCode": 0,
+    "time": "2026-07-12 11:10:52"
+  },
+  {
+    "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update xjasonlyu.tun2socks --urls https://github.com/xjasonlyu/tun2socks/releases/download/v2.7.0/tun2socks-windows-386.zip https://github.com/xjasonlyu/tun2socks/releases/download/v2.7.0/tun2socks-windows-amd64.zip https://github.com/xjasonlyu/tun2socks/releases/download/v2.7.0/tun2socks-windows-arm64.zip --version v2.7.0 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
+    "returnedCode": 0,
+    "time": "2026-07-12 11:10:59"
   }
 ]
