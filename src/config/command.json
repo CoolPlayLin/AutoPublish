@@ -5733,5 +5733,20 @@
     "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update GodotEngine.GodotEngine.Mono --urls https://github.com/godotengine/godot/releases/download/4.7.1-stable/Godot_v4.7.1-stable_mono_win32.zip https://github.com/godotengine/godot/releases/download/4.7.1-stable/Godot_v4.7.1-stable_mono_win64.zip https://github.com/godotengine/godot/releases/download/4.7.1-stable/Godot_v4.7.1-stable_mono_windows_arm64.zip --version 4.7.1 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
     "returnedCode": 0,
     "time": "2026-07-14 20:14:55"
+  },
+  {
+    "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update Cloudflare.cloudflared --urls https://github.com/cloudflare/cloudflared/releases/download/2026.7.2/cloudflared-windows-386.msi https://github.com/cloudflare/cloudflared/releases/download/2026.7.2/cloudflared-windows-amd64.msi --version 2026.7.2 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
+    "returnedCode": 0,
+    "time": "2026-07-15 14:51:24"
+  },
+  {
+    "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update DenoLand.Deno --urls https://github.com/denoland/deno/releases/download/v2.9.3/deno-aarch64-pc-windows-msvc.from-2.9.2.bsdiff https://github.com/denoland/deno/releases/download/v2.9.3/deno-aarch64-pc-windows-msvc.zip https://github.com/denoland/deno/releases/download/v2.9.3/deno-x86_64-pc-windows-msvc.from-2.9.2.bsdiff https://github.com/denoland/deno/releases/download/v2.9.3/deno-x86_64-pc-windows-msvc.zip --version 2.9.3 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
+    "returnedCode": 1,
+    "time": "2026-07-15 16:23:43"
+  },
+  {
+    "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update DenoLand.Deno --urls https://github.com/denoland/deno/releases/download/v2.9.3/deno-aarch64-pc-windows-msvc.from-2.9.2.bsdiff https://github.com/denoland/deno/releases/download/v2.9.3/deno-aarch64-pc-windows-msvc.zip https://github.com/denoland/deno/releases/download/v2.9.3/deno-x86_64-pc-windows-msvc.from-2.9.2.bsdiff https://github.com/denoland/deno/releases/download/v2.9.3/deno-x86_64-pc-windows-msvc.zip --version 2.9.3 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
+    "returnedCode": 0,
+    "time": "2026-07-15 18:08:58"
   }
 ]
