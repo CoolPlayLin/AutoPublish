@@ -429,7 +429,7 @@ def main(packages: list[dict]) -> list[tuple[str, tuple[str, str, str]]]:
     res = requests.get("https://website.upupoo.com/official/qr_code/official").json()
     Version = res["data"]["version_no"]
     Urls = [res["data"]["url"]]
-    if not version_verify(Version, id, DEVELOP_MODE):
+    if False and not version_verify(Version, id, DEVELOP_MODE):
         report_existed(id, Version)
     elif do_list(id, Version, "verify"):
         report_existed(id, Version)
