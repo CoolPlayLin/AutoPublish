@@ -442,7 +442,7 @@ def main(packages: list[dict]) -> list[tuple[str, tuple[str, str, str]]]:
         )
 
     # Check for missing versions
-    if time.strftime("%d-%H") in ("1-12", "10-12", "20-12", "30-12"):
+    if False and time.strftime("%d-%H") in ("1-12", "10-12", "20-12", "30-12"):
         try:
             for each in requests.get(
                 "https://api.github.com/repos/denoland/deno/releases",
