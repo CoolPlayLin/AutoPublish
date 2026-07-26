@@ -424,22 +424,6 @@ def main(packages: list[dict]) -> list[tuple[str, tuple[str, str, str]]]:
             )
         )
 
-    # UPUPOO.UPUPOO
-    id = "UPUPOO.UPUPOO"
-    res = requests.get("https://website.upupoo.com/official/qr_code/official").json()
-    Version = res["data"]["version_no"]
-    Urls = [res["data"]["url"]]
-    if False and not version_verify(Version, id, DEVELOP_MODE):
-        report_existed(id, Version)
-    elif do_list(id, Version, "verify"):
-        report_existed(id, Version)
-    else:
-        Commands.append(
-            (
-                command_generator(Komac, id, list_to_str(Urls), Version, GH_TOKEN),
-                (id, Version, "write"),
-            )
-        )
 
     # Check for missing versions
     if False and time.strftime("%d-%H") in ("1-12", "10-12", "20-12", "30-12"):
