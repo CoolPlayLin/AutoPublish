@@ -5698,5 +5698,75 @@
     "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update Cloudflare.cloudflared --urls https://github.com/cloudflare/cloudflared/releases/download/2026.7.1/cloudflared-windows-386.msi https://github.com/cloudflare/cloudflared/releases/download/2026.7.1/cloudflared-windows-amd64.msi --version 2026.7.1 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
     "returnedCode": 0,
     "time": "2026-07-09 15:56:19"
+  },
+  {
+    "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update PicGo.PicGo --urls https://github.com/Molunerfinn/PicGo/releases/download/v3.0.1/PicGo-3.0.1-ia32.exe https://github.com/Molunerfinn/PicGo/releases/download/v3.0.1/PicGo-3.0.1-x64.exe --version 3.0.1 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
+    "returnedCode": 0,
+    "time": "2026-07-12 11:10:52"
+  },
+  {
+    "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update xjasonlyu.tun2socks --urls https://github.com/xjasonlyu/tun2socks/releases/download/v2.7.0/tun2socks-windows-386.zip https://github.com/xjasonlyu/tun2socks/releases/download/v2.7.0/tun2socks-windows-amd64.zip https://github.com/xjasonlyu/tun2socks/releases/download/v2.7.0/tun2socks-windows-arm64.zip --version v2.7.0 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
+    "returnedCode": 0,
+    "time": "2026-07-12 11:10:59"
+  },
+  {
+    "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update Genymobile.scrcpy --urls https://github.com/Genymobile/scrcpy/releases/download/v4.1/scrcpy-win32-v4.1.zip https://github.com/Genymobile/scrcpy/releases/download/v4.1/scrcpy-win64-v4.1.zip --version 4.1 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
+    "returnedCode": 0,
+    "time": "2026-07-12 19:17:51"
+  },
+  {
+    "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update Notion.Notion --urls https://desktop-release.notion-static.com/Notion%20Setup%207.26.0.exe --version 7.26.0 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
+    "returnedCode": 0,
+    "time": "2026-07-14 02:34:27"
+  },
+  {
+    "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update KuaiFan.DooTask --urls https://github.com/kuaifan/dootask/releases/download/v1.8.69/DooTask-v1.8.69-win-arm64.exe https://github.com/kuaifan/dootask/releases/download/v1.8.69/DooTask-v1.8.69-win-x64.exe https://github.com/kuaifan/dootask/releases/download/v1.8.69/DooTask-v1.8.69-win.exe --version 1.8.69 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
+    "returnedCode": 0,
+    "time": "2026-07-14 10:47:11"
+  },
+  {
+    "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update GodotEngine.GodotEngine.Mono --urls  --version 4.7.1 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
+    "returnedCode": 2,
+    "time": "2026-07-14 18:04:20"
+  },
+  {
+    "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update GodotEngine.GodotEngine.Mono --urls https://github.com/godotengine/godot/releases/download/4.7.1-stable/Godot_v4.7.1-stable_mono_win32.zip https://github.com/godotengine/godot/releases/download/4.7.1-stable/Godot_v4.7.1-stable_mono_win64.zip https://github.com/godotengine/godot/releases/download/4.7.1-stable/Godot_v4.7.1-stable_mono_windows_arm64.zip --version 4.7.1 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
+    "returnedCode": 0,
+    "time": "2026-07-14 20:14:55"
+  },
+  {
+    "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update Cloudflare.cloudflared --urls https://github.com/cloudflare/cloudflared/releases/download/2026.7.2/cloudflared-windows-386.msi https://github.com/cloudflare/cloudflared/releases/download/2026.7.2/cloudflared-windows-amd64.msi --version 2026.7.2 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
+    "returnedCode": 0,
+    "time": "2026-07-15 14:51:24"
+  },
+  {
+    "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update DenoLand.Deno --urls https://github.com/denoland/deno/releases/download/v2.9.3/deno-aarch64-pc-windows-msvc.from-2.9.2.bsdiff https://github.com/denoland/deno/releases/download/v2.9.3/deno-aarch64-pc-windows-msvc.zip https://github.com/denoland/deno/releases/download/v2.9.3/deno-x86_64-pc-windows-msvc.from-2.9.2.bsdiff https://github.com/denoland/deno/releases/download/v2.9.3/deno-x86_64-pc-windows-msvc.zip --version 2.9.3 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
+    "returnedCode": 1,
+    "time": "2026-07-15 16:23:43"
+  },
+  {
+    "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update DenoLand.Deno --urls https://github.com/denoland/deno/releases/download/v2.9.3/deno-aarch64-pc-windows-msvc.from-2.9.2.bsdiff https://github.com/denoland/deno/releases/download/v2.9.3/deno-aarch64-pc-windows-msvc.zip https://github.com/denoland/deno/releases/download/v2.9.3/deno-x86_64-pc-windows-msvc.from-2.9.2.bsdiff https://github.com/denoland/deno/releases/download/v2.9.3/deno-x86_64-pc-windows-msvc.zip --version 2.9.3 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
+    "returnedCode": 0,
+    "time": "2026-07-15 18:08:58"
+  },
+  {
+    "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update KuaiFan.DooTask --urls https://github.com/kuaifan/dootask/releases/download/v1.8.89/DooTask-v1.8.89-win-arm64.exe https://github.com/kuaifan/dootask/releases/download/v1.8.89/DooTask-v1.8.89-win-x64.exe https://github.com/kuaifan/dootask/releases/download/v1.8.89/DooTask-v1.8.89-win.exe --version 1.8.89 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
+    "returnedCode": 0,
+    "time": "2026-07-26 12:16:10"
+  },
+  {
+    "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update DenoLand.Deno --urls https://github.com/denoland/deno/releases/download/v2.9.4/deno-aarch64-pc-windows-msvc.from-2.9.3.bsdiff https://github.com/denoland/deno/releases/download/v2.9.4/deno-aarch64-pc-windows-msvc.zip https://github.com/denoland/deno/releases/download/v2.9.4/deno-x86_64-pc-windows-msvc.from-2.9.3.bsdiff https://github.com/denoland/deno/releases/download/v2.9.4/deno-x86_64-pc-windows-msvc.zip --version 2.9.4 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
+    "returnedCode": 0,
+    "time": "2026-07-26 12:16:10"
+  },
+  {
+    "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update Cloudflare.cloudflared --urls https://github.com/cloudflare/cloudflared/releases/download/2026.7.3/cloudflared-windows-386.msi https://github.com/cloudflare/cloudflared/releases/download/2026.7.3/cloudflared-windows-amd64.msi --version 2026.7.3 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
+    "returnedCode": 0,
+    "time": "2026-07-26 12:16:11"
+  },
+  {
+    "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update Notion.Notion --urls https://desktop-release.notion-static.com/Notion%20Setup%207.27.0.exe --version 7.27.0 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
+    "returnedCode": 0,
+    "time": "2026-07-26 12:16:12"
   }
 ]
