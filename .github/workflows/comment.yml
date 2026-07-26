@@ -10,7 +10,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v7.0.1
       - name: Setup Node.JS
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: 22
       - uses: pnpm/action-setup@v4
@@ -42,7 +42,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Close Stale Issues
-        uses: actions/stale@v9.1.0
+        uses: actions/stale@v10.4.0
         with:
           repo-token: ${{ secrets.TOKEN }}
           exempt-issue-labels: "WIP,NeverExpires,Blocking-issue"
