@@ -236,3 +236,12 @@
       - 芙芙工具箱
       - " "
       - v
+- id: 7zip.7zip
+  type: selfPublishing
+  enable: true
+- id: NASM.NASM
+  type: selfPublishing
+  enable: true
+- id: sf-yuzifu.bcm_convertor
+  type: selfPublishing
+  enable: true

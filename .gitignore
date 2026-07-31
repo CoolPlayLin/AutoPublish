@@ -4,3 +4,4 @@ manifests
 node_modules
 .venv
 *.exe
+*.pyc

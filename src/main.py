@@ -7,6 +7,8 @@ import json
 import bs4
 import time
 import yaml
+from config.util import matchWithKeyWords
+from selfPublishing import selfPublishing
 
 
 def commandLogger(executedCommand: str, returnedCode: int):
@@ -41,29 +43,7 @@ def commandLogger(executedCommand: str, returnedCode: int):
         f.write(json.dumps(executedCommandList))
 
 
-def matchWithKeyWords(
-    value: list[str],
-    requiredKeywords: list[str] = [],
-    necessaryKeywords: list[str] = [],
-    excludedKeywords: list[str] = [],
-    prefix: str | None = None,
-) -> list[str]:
-    result = value
-    if excludedKeywords:
-        for keyword in excludedKeywords:
-            result = [v for v in result if not keyword in v]
-    if requiredKeywords:
-        for keyword in requiredKeywords:
-            result = [v for v in result if keyword in v]
-    if necessaryKeywords:
-        includingResult = {
-            k: v
-            for k, v in [(v, any([k in v for k in necessaryKeywords])) for v in result]
-        }
-        result = [v for v in result if includingResult[v]]
-    if prefix:
-        result = [prefix + r for r in result]
-    return result
+
 
 
 urllib3.disable_warnings(InsecureRequestWarning)
@@ -241,188 +221,120 @@ def main(packages: list[dict]) -> list[tuple[str, tuple[str, str, str]]]:
         )
 
     for package in packages:
-        if not package["enable"]:
+        if not package.get("enable"):
             print(f"{package['id']} is disabled")
             continue
-        Urls = []
-        OriginalVersion = ""
-        Version = ""
-        if package["type"] == "Github":
-            OriginalResponse = requests.get(
-                package["url"],
-                verify=False,
-                headers=Headers[1],
-            ).json()
-            res = get_assets(OriginalResponse, package.get("assets") or {})
-            OriginalVersion = res["tag_name"]
-            if package.get("skip"):
-                if package["skip"].get("whenEqualsToLatestVersion"):
-                    if (
-                        package["skip"]["whenEqualsToLatestVersion"]["enable"]
-                        and get_value_via_path(
-                            requests.get(
-                                url=package["skip"]["whenEqualsToLatestVersion"]["url"],
-                                verify=False,
-                                headers=Headers[1],
-                            ).json(),
-                            package["skip"]["whenEqualsToLatestVersion"]["path"],
-                        )
-                        == OriginalVersion
-                    ):
-                        continue
-            Version = get_version(
-                OriginalVersion,
-                package.get("version") or {},
-            )
-            Urls = matchWithKeyWords(
-                [each["browser_download_url"] for each in res["assets"]],
-                requiredKeywords=package["match"]["requiredKeywords"],
-                excludedKeywords=package["match"].get("excludedKeywords") or [],
-                necessaryKeywords=package["match"].get("necessaryKeywords") or [],
-            )
-        elif package["type"] == "prefixWithFilename":
-            OriginalResponse = requests.get(
-                url=package["url"],
-                verify=False,
-                headers=Headers[0],
-            ).json()
-            res = get_assets(OriginalResponse, package["assets"])
-            OriginalVersion = get_value_via_path(res, package["version"]["path"])
-            Urls = [
-                package["pattern"].replace("$filename", filename)
-                for filename in matchWithKeyWords(
-                    [
-                        u.get(package["assets"]["filename"])
-                        for u in get_value_via_path(res, package["assets"]["filepath"])
-                    ],
+        if package.get("type") == "selfPublishing":
+            print(f"{package['id']} is running a self-publishing process")
+            
+            response = selfPublishing(Headers[1])(package["id"])
+            Version = response["Version"]
+            Urls = response["Urls"]
+            if not version_verify(str_pop(Version, 0), package["id"], DEVELOP_MODE):
+                report_existed(package["id"], Version)
+            elif do_list(package["id"], Version, "verify"):
+                report_existed(package["id"], Version)
+            else:
+                Commands.append(
+                    (
+                        command_generator(
+                            Komac, package["id"], list_to_str(Urls), str_pop(Version, 0), GH_TOKEN
+                        ),
+                        (package["id"], Version, "write"),
+                    )
+                )
+        else:
+            print(f"{package['id']} is running a standard publishing process")
+            Urls = []
+            OriginalVersion = ""
+            Version = ""
+            if package["type"] == "Github":
+                OriginalResponse = requests.get(
+                    package["url"],
+                    verify=False,
+                    headers=Headers[1],
+                ).json()
+                res = get_assets(OriginalResponse, package.get("assets") or {})
+                OriginalVersion = res["tag_name"]
+                if package.get("skip"):
+                    if package["skip"].get("whenEqualsToLatestVersion"):
+                        if (
+                            package["skip"]["whenEqualsToLatestVersion"]["enable"]
+                            and get_value_via_path(
+                                requests.get(
+                                    url=package["skip"]["whenEqualsToLatestVersion"]["url"],
+                                    verify=False,
+                                    headers=Headers[1],
+                                ).json(),
+                                package["skip"]["whenEqualsToLatestVersion"]["path"],
+                            )
+                            == OriginalVersion
+                        ):
+                            continue
+                Version = get_version(
+                    OriginalVersion,
+                    package.get("version") or {},
+                )
+                Urls = matchWithKeyWords(
+                    [each["browser_download_url"] for each in res["assets"]],
                     requiredKeywords=package["match"]["requiredKeywords"],
                     excludedKeywords=package["match"].get("excludedKeywords") or [],
                     necessaryKeywords=package["match"].get("necessaryKeywords") or [],
                 )
-            ]
-            Version = get_version(
-                OriginalVersion,
-                package.get("version") or {},
-            )
-        elif package["type"] == "redirectedFromUrl":
-            OriginalResponse = requests.get(
-                url=package["url"], verify=False, headers=Headers[0]
-            )
-            res = OriginalResponse.url
-            Urls = [res]
-            OriginalVersion = get_version(
-                res, package.get("version") or {"removeFirstCharacter": False}
-            )
-            Version = OriginalVersion
-        else:
-            print(f"""{package['type']} hasn't been supported yet""")
-            continue
-        if not version_verify(Version, package["id"], DEVELOP_MODE):
-            report_existed(package["id"], OriginalVersion)
-        elif do_list(package["id"], OriginalVersion, "verify"):
-            report_existed(package["id"], OriginalVersion)
-        else:
-            Commands.append(
-                (
-                    command_generator(
-                        Komac,
-                        package["id"],
-                        list_to_str(Urls),
-                        Version,
-                        GH_TOKEN,
-                    ),
-                    (package["id"], OriginalVersion, "write"),
+            elif package["type"] == "prefixWithFilename":
+                OriginalResponse = requests.get(
+                    url=package["url"],
+                    verify=False,
+                    headers=Headers[0],
+                ).json()
+                res = get_assets(OriginalResponse, package["assets"])
+                OriginalVersion = get_value_via_path(res, package["version"]["path"])
+                Urls = [
+                    package["pattern"].replace("$filename", filename)
+                    for filename in matchWithKeyWords(
+                        [
+                            u.get(package["assets"]["filename"])
+                            for u in get_value_via_path(res, package["assets"]["filepath"])
+                        ],
+                        requiredKeywords=package["match"]["requiredKeywords"],
+                        excludedKeywords=package["match"].get("excludedKeywords") or [],
+                        necessaryKeywords=package["match"].get("necessaryKeywords") or [],
+                    )
+                ]
+                Version = get_version(
+                    OriginalVersion,
+                    package.get("version") or {},
                 )
-            )
-
-    # sf-yuzifu.bcm_convertor
-    id = "sf-yuzifu.bcm_convertor"
-    res = requests.get(
-        "https://api.github.com/repos/sf-yuzifu/bcm_convertor/releases/latest",
-        verify=False,
-        headers=Headers[1],
-    ).json()
-    Version = res["tag_name"]
-    Urls = matchWithKeyWords(
-        [each["browser_download_url"] for each in res["assets"]],
-        requiredKeywords=[".exe"],
-    )
-    Urls.append(
-        Urls[0]
-        .replace("github", "gitee")
-        .replace(
-            "bcm_convertor.yzf",
-            "%E7%BC%96%E7%A8%8B%E7%8C%AB%E6%A0%BC%E5%BC%8F%E5%B7%A5%E5%8E%82",
-        )
-    )
-    if not version_verify(str_pop(Version, 0), id, DEVELOP_MODE):
-        report_existed(id, Version)
-    elif do_list(id, Version, "verify"):
-        report_existed(id, Version)
-    else:
-        Commands.append(
-            (
-                command_generator(
-                    Komac, id, list_to_str(Urls), str_pop(Version, 0), GH_TOKEN
-                ),
-                (id, Version, "write"),
-            )
-        )
-    del res, Urls, Version, id
-
-    # 7zip.7zip
-    id = "7zip.7zip"
-    res = bs4.BeautifulSoup(
-        requests.get(
-            "https://7-zip.org/",
-            verify=False,
-            headers=Headers[0],
-        ).text,
-        "html.parser",
-    )
-    Version = [
-        each
-        for each in res.find_all("a")
-        if "https://sourceforge.net/p/" in each["href"]
-    ][0].text.replace("7-Zip ", "")
-    Urls = matchWithKeyWords(
-        [each["href"] for each in res.find_all("a", href=True)],
-        requiredKeywords=[".exe", Version.replace(".", "")],
-        prefix="https://7-zip.org/",
-    )
-    if not version_verify(Version, id, DEVELOP_MODE):
-        report_existed(id, Version)
-    elif do_list(id, Version, "verify"):
-        report_existed(id, Version)
-    else:
-        Commands.append(
-            (
-                command_generator(Komac, id, list_to_str(Urls), Version, GH_TOKEN),
-                (id, Version, "write"),
-            )
-        )
-
-    # NASM.NASM
-    id = "NASM.NASM"
-    res = bs4.BeautifulSoup(
-        requests.get("https://nasm.us/", verify=False).text, "html.parser"
-    )
-    Version = res.find("td").text
-    Urls = [
-        f"https://www.nasm.us/pub/nasm/releasebuilds/{Version}/win64/nasm-{Version}-installer-x64.exe",
-        f"https://www.nasm.us/pub/nasm/releasebuilds/{Version}/win32/nasm-{Version}-installer-x86.exe",
-    ]
-    if not version_verify(Version, id, DEVELOP_MODE):
-        report_existed(id, Version)
-    elif do_list(id, Version, "verify"):
-        report_existed(id, Version)
-    else:
-        Commands.append(
-            (
-                command_generator(Komac, id, list_to_str(Urls), Version, GH_TOKEN),
-                (id, Version, "write"),
-            )
-        )
+            elif package["type"] == "redirectedFromUrl":
+                OriginalResponse = requests.get(
+                    url=package["url"], verify=False, headers=Headers[0]
+                )
+                res = OriginalResponse.url
+                Urls = [res]
+                OriginalVersion = get_version(
+                    res, package.get("version") or {"removeFirstCharacter": False}
+                )
+                Version = OriginalVersion
+            else:
+                print(f"""{package['type']} hasn't been supported yet""")
+                continue
+            if not version_verify(Version, package["id"], DEVELOP_MODE):
+                report_existed(package["id"], OriginalVersion)
+            elif do_list(package["id"], OriginalVersion, "verify"):
+                report_existed(package["id"], OriginalVersion)
+            else:
+                Commands.append(
+                    (
+                        command_generator(
+                            Komac,
+                            package["id"],
+                            list_to_str(Urls),
+                            Version,
+                            GH_TOKEN,
+                        ),
+                        (package["id"], OriginalVersion, "write"),
+                    )
+                )
 
 
     # Check for missing versions
