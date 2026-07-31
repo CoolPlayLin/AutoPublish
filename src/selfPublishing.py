@@ -29,7 +29,7 @@ class selfPublishing:
         Urls = matchWithKeyWords(
             [each["href"] for each in res.find_all("a", href=True)],
             requiredKeywords=[".exe", Version.replace(".", "")],
-            prefix="https://7-zip.org/",
+            prefix="",
         )
         return {"Version": Version, "Urls": Urls}
     def _bcm_convertor(self) -> dict[str, object]:
