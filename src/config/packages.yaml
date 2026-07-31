@@ -189,6 +189,8 @@
   match:
     requiredKeywords:
       - .exe
+  version:
+    removeFirstCharacter: true
 - id: Audacity.Audacity
   url: https://api.github.com/repos/audacity/audacity/releases/latest
   version:
