@@ -169,6 +169,8 @@
       - msvc
     excludedKeywords:
       - sha
+      - json
+      - sigstore
 - id: GodotEngine.GodotEngine.Mono
   url: https://api.github.com/repos/godotengine/godot/releases/latest
   type: Github
