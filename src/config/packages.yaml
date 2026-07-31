@@ -190,7 +190,8 @@
     requiredKeywords:
       - .exe
   version:
-    removeFirstCharacter: true
+    removeCharacters:
+      - "-"
 - id: Audacity.Audacity
   url: https://api.github.com/repos/audacity/audacity/releases/latest
   version:
