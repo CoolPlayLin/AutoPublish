@@ -250,3 +250,6 @@
 - id: sf-yuzifu.bcm_convertor
   type: selfPublishing
   enable: true
+- id: SkyArc.LANDrop
+  type: selfPublishing
+  enable: true

@@ -3,15 +3,28 @@ from config.util import matchWithKeyWords
 import bs4
 
 class selfPublishing:
-    def __init__(self, Headers: str):
+    def __init__(self, Headers: dict):
         self.Headers = Headers
     def __call__(self, id: str):
-          if id == "sf-yuzifu.bcm_convertor":
-                return(self._bcm_convertor())
-          elif id == "7zip.7zip":
-                return(self._7zip())
-          elif id == "NASM.NASM":
-                return(self._NASM())
+        if id == "sf-yuzifu.bcm_convertor":
+            return(self._bcm_convertor())
+        elif id == "7zip.7zip":
+            return(self._7zip())
+        elif id == "NASM.NASM":
+            return(self._NASM())
+        elif id == "SkyArc.LANDrop":
+            return(self._LANDrop())
+        else:
+            return {"Version": None, "Urls": []}
+    def _LANDrop(self) -> dict[str, object]:
+        res = requests.get(
+            "https://releases.landrop.app/versions.json",
+            verify=False,
+            headers=self.Headers
+        ).json()
+        Version: str = res["desktop"]
+        Urls = [f"https://releases.landrop.app/landrop-v2-electron/LANDrop-{Version}-win-x64-setup.exe"]
+        return {"Version": Version, "Urls": Urls}
     def _7zip(self) -> dict[str, object]:
         res = bs4.BeautifulSoup(
         requests.get(
