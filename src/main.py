@@ -230,7 +230,7 @@ def main(packages: list[dict]) -> list[tuple[str, tuple[str, str, str]]]:
             response = selfPublishing(Headers[1])(package["id"])
             Version = response["Version"]
             Urls = response["Urls"]
-            if not version_verify(str_pop(Version, 0), package["id"], DEVELOP_MODE):
+            if not version_verify(Version, package["id"], DEVELOP_MODE):
                 report_existed(package["id"], Version)
             elif do_list(package["id"], Version, "verify"):
                 report_existed(package["id"], Version)
