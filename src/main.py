@@ -238,7 +238,7 @@ def main(packages: list[dict]) -> list[tuple[str, tuple[str, str, str]]]:
                 Commands.append(
                     (
                         command_generator(
-                            Komac, package["id"], list_to_str(Urls), str_pop(Version, 0), GH_TOKEN
+                            Komac, package["id"], list_to_str(Urls), Version, GH_TOKEN
                         ),
                         (package["id"], Version, "write"),
                     )
