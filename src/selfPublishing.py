@@ -1,5 +1,5 @@
 import requests
-from config.util import matchWithKeyWords
+from config.util import matchWithKeyWords, clean_string
 import bs4
 
 class selfPublishing:
@@ -51,7 +51,7 @@ class selfPublishing:
                 verify=False,
                 headers=self.Headers,
             ).json()
-            Version = res["tag_name"]
+            Version = clean_string(res["tag_name"], {}, ["v"])
             Urls = matchWithKeyWords(
                 [each["browser_download_url"] for each in res["assets"]],
                 requiredKeywords=[".exe"],

@@ -21,4 +21,13 @@ def matchWithKeyWords(
     if prefix:
         result = [prefix + r for r in result]
     return result
-    
+
+def clean_string(
+    string: str, keywords: dict[str, str] = {}, removeWords: list[str] = []
+) -> str:
+    _string = string
+    for k in keywords.keys():
+        _string = _string.replace(k, keywords[k])
+    for r in removeWords:
+        _string = _string.replace(r, "")
+    return _string

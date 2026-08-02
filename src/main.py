@@ -7,7 +7,7 @@ import json
 import bs4
 import time
 import yaml
-from config.util import matchWithKeyWords
+from config.util import matchWithKeyWords, clean_string
 from selfPublishing import selfPublishing
 
 
@@ -89,16 +89,6 @@ def get_value_via_path(obj: dict, path: str):
         _obj = _obj[key]
     return _obj
 
-
-def clean_string(
-    string: str, keywords: dict[str, str] = {}, removeWords: list[str] = []
-) -> str:
-    _string = string
-    for k in keywords.keys():
-        _string = _string.replace(k, keywords[k])
-    for r in removeWords:
-        _string = _string.replace(r, "")
-    return _string
 
 
 def str_pop(string: str, index: int) -> str:
