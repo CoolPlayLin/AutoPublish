@@ -41,7 +41,7 @@ const main = async () => {
       issue_number: r.number,
     });
     const ready = comments.data.filter((obj) => {
-      if (obj.user?.login == login && obj.body?.includes("## For moderators")) {
+      if (obj.user?.login == login && obj.body?.includes("## To moderators")) {
         return obj;
       }
     });
