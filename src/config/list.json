@@ -1233,5 +1233,6 @@
     "v1.4.2",
     "v1.5.0"
   ],
-  "SkyArc.LANDrop": ["2.7.2"]
+  "SkyArc.LANDrop": ["2.7.2"],
+  "TacitDynamics.FolderSyncCLI": ["v1.2.0"]
 }

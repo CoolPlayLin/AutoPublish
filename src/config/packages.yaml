@@ -233,8 +233,8 @@
   url: https://api.github.com/repos/tacitdynamics/folderSync-cli-releases/releases/latest
   type: Github
   match:
-   requiredKeywords:
-    - Windows
+    requiredKeywords:
+      - Windows
 - id: DuckStudio.FufuTools
   url: https://api.github.com/repos/DuckDuckStudio/Fufu_Tools/releases/latest
   type: Github
