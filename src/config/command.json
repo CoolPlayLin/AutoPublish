@@ -5823,5 +5823,10 @@
     "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update SABnzbdTeam.SABnzbd --urls https://github.com/sabnzbd/sabnzbd/releases/download/5.1.0/SABnzbd-5.1.0-win-setup.exe --version 5.1.0 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
     "returnedCode": 0,
     "time": "2026-08-10 13:09:38"
+  },
+  {
+    "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update Notion.Notion --urls https://desktop-release.notion-static.com/Notion%20Setup%207.30.0.exe --version 7.30.0 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
+    "returnedCode": 0,
+    "time": "2026-08-11 01:48:02"
   }
 ]
