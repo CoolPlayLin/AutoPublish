@@ -931,7 +931,8 @@
     "bun-v1.3.11",
     "bun-v1.3.12",
     "bun-v1.3.13",
-    "bun-v1.3.14"
+    "bun-v1.3.14",
+    "bun-v1.4.0"
   ],
   "Oven-sh.Bun.BaselineProfile": [
     "1.1.3",
@@ -994,7 +995,8 @@
     "bun-v1.3.11",
     "bun-v1.3.12",
     "bun-v1.3.13",
-    "bun-v1.3.14"
+    "bun-v1.3.14",
+    "bun-v1.4.0"
   ],
   "Oven-sh.Bun": [
     "1.1.3",
@@ -1056,7 +1058,8 @@
     "bun-v1.3.11",
     "bun-v1.3.12",
     "bun-v1.3.13",
-    "bun-v1.3.14"
+    "bun-v1.3.14",
+    "bun-v1.4.0"
   ],
   "Oven-sh.Bun.Baseline": [
     "1.1.3",
@@ -1119,7 +1122,8 @@
     "bun-v1.3.11",
     "bun-v1.3.12",
     "bun-v1.3.13",
-    "bun-v1.3.14"
+    "bun-v1.3.14",
+    "bun-v1.4.0"
   ],
   "SABnzbdTeam.SABnzbd": [
     "4.2.3",
