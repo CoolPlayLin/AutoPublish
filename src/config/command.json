@@ -5943,5 +5943,10 @@
     "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update Notion.Notion --urls https://desktop-release.notion-static.com/Notion%20Setup%207.32.0.exe --version 7.32.0 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
     "returnedCode": 0,
     "time": "2026-09-01 07:23:41"
+  },
+  {
+    "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update Audacity.Audacity --urls https://github.com/audacity/audacity/releases/download/Audacity-3.7.9/audacity-win-3.7.9-32bit.exe https://github.com/audacity/audacity/releases/download/Audacity-3.7.9/audacity-win-3.7.9-64bit.exe https://github.com/audacity/audacity/releases/download/Audacity-3.7.9/audacity-win-3.7.9-arm64.exe --version 3.7.9 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
+    "returnedCode": 0,
+    "time": "2026-09-01 17:39:41"
   }
 ]
