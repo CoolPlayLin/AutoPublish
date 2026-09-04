@@ -5963,5 +5963,25 @@
     "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update 7zip.7zip --urls https://github.com/ip7z/7zip/releases/download/26.03/7z2603-x64.exe https://github.com/ip7z/7zip/releases/download/26.03/7z2603.exe https://github.com/ip7z/7zip/releases/download/26.03/7z2603-arm64.exe --version 26.03 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
     "returnedCode": 0,
     "time": "2026-09-04 08:32:59"
+  },
+  {
+    "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update Oven-sh.Bun --urls https://github.com/oven-sh/bun/releases/download/bun-v1.4.1/bun-windows-aarch64.zip https://github.com/oven-sh/bun/releases/download/bun-v1.4.1/bun-windows-x64.zip --version 1.4.1 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
+    "returnedCode": 0,
+    "time": "2026-09-04 13:13:16"
+  },
+  {
+    "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update Oven-sh.Bun.Baseline --urls https://github.com/oven-sh/bun/releases/download/bun-v1.4.1/bun-windows-x64-baseline.zip --version 1.4.1 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
+    "returnedCode": 0,
+    "time": "2026-09-04 13:13:17"
+  },
+  {
+    "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update Oven-sh.Bun.Profile --urls https://github.com/oven-sh/bun/releases/download/bun-v1.4.1/bun-windows-aarch64-profile.zip https://github.com/oven-sh/bun/releases/download/bun-v1.4.1/bun-windows-x64-profile.zip --version 1.4.1 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
+    "returnedCode": 0,
+    "time": "2026-09-04 13:13:18"
+  },
+  {
+    "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update Oven-sh.Bun.BaselineProfile --urls https://github.com/oven-sh/bun/releases/download/bun-v1.4.1/bun-windows-x64-baseline-profile.zip --version 1.4.1 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
+    "returnedCode": 0,
+    "time": "2026-09-04 13:13:19"
   }
 ]
