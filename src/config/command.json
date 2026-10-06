@@ -6103,5 +6103,10 @@
     "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update Notion.Notion --urls https://desktop-release.notion-static.com/Notion%20Setup%207.37.0.exe --version 7.37.0 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
     "returnedCode": 0,
     "time": "2026-10-06 07:15:10"
+  },
+  {
+    "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update 7zip.7zip --urls https://github.com/ip7z/7zip/releases/download/26.04/7z2604-x64.exe https://github.com/ip7z/7zip/releases/download/26.04/7z2604.exe https://github.com/ip7z/7zip/releases/download/26.04/7z2604-arm64.exe --version 26.04 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
+    "returnedCode": 0,
+    "time": "2026-10-06 14:48:24"
   }
 ]
