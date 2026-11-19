@@ -6373,5 +6373,25 @@
     "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update Cloudflare.cloudflared --urls https://github.com/cloudflare/cloudflared/releases/download/2026.11.1/cloudflared-windows-386.msi https://github.com/cloudflare/cloudflared/releases/download/2026.11.1/cloudflared-windows-amd64.msi --version 2026.11.1 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
     "returnedCode": 0,
     "time": "2026-11-17 17:26:33"
+  },
+  {
+    "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update Oven-sh.Bun --urls https://github.com/oven-sh/bun/releases/download/bun-v1.4.5/bun-windows-aarch64.zip https://github.com/oven-sh/bun/releases/download/bun-v1.4.5/bun-windows-x64.zip --version 1.4.5 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
+    "returnedCode": 0,
+    "time": "2026-11-19 17:07:57"
+  },
+  {
+    "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update Oven-sh.Bun.Baseline --urls https://github.com/oven-sh/bun/releases/download/bun-v1.4.5/bun-windows-x64-baseline.zip --version 1.4.5 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
+    "returnedCode": 0,
+    "time": "2026-11-19 17:07:58"
+  },
+  {
+    "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update Oven-sh.Bun.Profile --urls https://github.com/oven-sh/bun/releases/download/bun-v1.4.5/bun-windows-aarch64-profile.zip https://github.com/oven-sh/bun/releases/download/bun-v1.4.5/bun-windows-x64-profile.zip --version 1.4.5 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
+    "returnedCode": 0,
+    "time": "2026-11-19 17:07:59"
+  },
+  {
+    "executedCommand": "D:\\a\\AutoPublish\\AutoPublish\\src\\komac.exe update Oven-sh.Bun.BaselineProfile --urls https://github.com/oven-sh/bun/releases/download/bun-v1.4.5/bun-windows-x64-baseline-profile.zip --version 1.4.5 --created-with AutoPublish --created-with-url https://github.com/CoolPlayLin/AutoPublish --submit --token ***",
+    "returnedCode": 0,
+    "time": "2026-11-19 17:08:00"
   }
 ]
