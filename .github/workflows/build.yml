@@ -1,5 +1,4 @@
 name: Auto Publish
-enable: false
 on:
   workflow_dispatch:
   schedule: [{ cron: 0 * * * * }]
